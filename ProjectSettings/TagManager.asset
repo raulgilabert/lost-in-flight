@@ -54,6 +54,9 @@ TagManager:
   - name: Ground Decal
     uniqueID: 3978903437
     locked: 0
+  - name: Airborne
+    uniqueID: 647218263
+    locked: 0
   - name: Foreground
     uniqueID: 2193874109
     locked: 0
