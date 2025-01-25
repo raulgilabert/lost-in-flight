@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -24,11 +25,13 @@ public class Player : MonoBehaviour
     private float _stepTimer;
 
     [SerializeField] private float baseMoveSpeed;
-    [SerializeField] private float slipperyness;
+    [SerializeField] private float slipperynessFactor;
     [SerializeField] private float jumpForce;
     [SerializeField] private float groundedRaycastDistance;
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private float stepCadence;
+    [SerializeField] private Color soapyColor;
+    public float soapyness;
     
     private void Awake()
     {
@@ -67,6 +70,8 @@ public class Player : MonoBehaviour
         {
             _stepTimer = 0;
         }
+
+        sprite.color = new Color(soapyColor.r, soapyColor.g, soapyColor.b, soapyColor.a * soapyness);
     }
 
     private void FixedUpdate()
@@ -88,9 +93,9 @@ public class Player : MonoBehaviour
         float targetSpeed = baseMoveSpeed * _inputSpeed;
         float newSpeed;
         
-        if (currentSpeed * targetSpeed < 0 || targetSpeed == 0)
+        if (Mathf.Abs(targetSpeed) < Mathf.Abs(currentSpeed))
         {
-            newSpeed = Mathf.Lerp(currentSpeed, targetSpeed, 1f / Mathf.Max(1, slipperyness));
+            newSpeed = Mathf.Lerp(currentSpeed, targetSpeed, 1f / Mathf.Max(1, slipperynessFactor * soapyness + 1));
         }
         else
         {
