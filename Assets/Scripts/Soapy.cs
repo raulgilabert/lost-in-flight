@@ -20,6 +20,6 @@ public class Soapy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector3(0, velocity, 0);
+        rb.velocity = new Vector3(0, -velocity, 0);
     }
 }
