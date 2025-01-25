@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -10,6 +11,7 @@ public class Player : MonoBehaviour
     private static readonly int HorizontalSpeed = Animator.StringToHash("HorizontalSpeed");
     private static readonly int Jump = Animator.StringToHash("Jump");
     private static readonly int Grounded = Animator.StringToHash("Grounded");
+    private static readonly int Death = Animator.StringToHash("Death");
 
     private Rigidbody2D _rigidbody;
     private Animator _animator;
@@ -24,17 +26,22 @@ public class Player : MonoBehaviour
     private float _stepTimer;
 
     [SerializeField] private float baseMoveSpeed;
-    [SerializeField] private float slipperyness;
+    [SerializeField] private float slipperynessFactor;
     [SerializeField] private float jumpForce;
     [SerializeField] private float groundedRaycastDistance;
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private float stepCadence;
+    [SerializeField] private Color soapyColor;
+    public float soapyness;
+    [SerializeField] private float damageToSoapynessFactor;
     
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
+        
+        GameManager.Instance.player = this;
     }
 
     // Start is called before the first frame update
@@ -67,6 +74,8 @@ public class Player : MonoBehaviour
         {
             _stepTimer = 0;
         }
+
+        sprite.color = new Color(soapyColor.r, soapyColor.g, soapyColor.b, soapyColor.a * soapyness);
     }
 
     private void FixedUpdate()
@@ -88,9 +97,9 @@ public class Player : MonoBehaviour
         float targetSpeed = baseMoveSpeed * _inputSpeed;
         float newSpeed;
         
-        if (currentSpeed * targetSpeed < 0 || targetSpeed == 0)
+        if (Mathf.Abs(targetSpeed) < Mathf.Abs(currentSpeed))
         {
-            newSpeed = Mathf.Lerp(currentSpeed, targetSpeed, 1f / Mathf.Max(1, slipperyness));
+            newSpeed = Mathf.Lerp(currentSpeed, targetSpeed, 1f / Mathf.Max(1, slipperynessFactor * soapyness + 1));
         }
         else
         {
@@ -129,5 +138,21 @@ public class Player : MonoBehaviour
         {
             _jumpHeld = false;
         }
+    }
+
+    public void OnDamageReceived(float damage)
+    {
+        soapyness += damage * damageToSoapynessFactor;
+
+        if (soapyness >= 1)
+        {
+            _animator.SetTrigger(Death);
+            Destroy(GetComponent<DamageReceiver>());
+        }
+    }
+
+    public void OnDeathAnimationEnded()
+    {
+        // TODO: Reset?
     }
 }
