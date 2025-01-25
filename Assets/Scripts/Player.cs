@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     private int _jumpCount;
     private bool _jumpHeld;
     private float _stepTimer;
+    private bool _isDead;
 
     [SerializeField] private float baseMoveSpeed;
     [SerializeField] private float slipperynessFactor;
@@ -52,6 +53,7 @@ public class Player : MonoBehaviour
         _isGrounded = false;
         _jumpCount = 0;
         _jumpHeld = false;
+        _isDead = false;
     }
 
     private void Update()
@@ -76,6 +78,11 @@ public class Player : MonoBehaviour
         }
 
         sprite.color = new Color(soapyColor.r, soapyColor.g, soapyColor.b, soapyColor.a * soapyness);
+
+        if (_isDead)
+        {
+            _animator.SetTrigger(Death);
+        }
     }
 
     private void FixedUpdate()
@@ -128,11 +135,13 @@ public class Player : MonoBehaviour
 
     private void OnMove(InputValue value)
     {
+        if (_isDead) return;
         _inputSpeed = value.Get<float>();
     }
 
     private void OnJump(InputValue value)
     {
+        if (_isDead) return;
         _inputJump = value.Get<float>() > 0;
         if (!_inputJump)
         {
@@ -148,6 +157,9 @@ public class Player : MonoBehaviour
         {
             _animator.SetTrigger(Death);
             Destroy(GetComponent<DamageReceiver>());
+            baseMoveSpeed = 0;
+            jumpForce = 0;
+            _isDead = true;
         }
     }
 

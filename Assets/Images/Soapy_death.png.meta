@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d2c07358008b3b754b1ab524b6216dfe
+guid: 92ccaa9789ce1a6c2bafae73306c8515
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: minisoapy_fly_0
+      name: Soapy_death_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 66f9a2b01fcdb22038b847c2ef8c8fcf
-      internalID: -1927177746
+      spriteID: 38c2354ceadc825c3ba550e93046540d
+      internalID: 770927373
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: minisoapy_fly_1
+      name: Soapy_death_1
       rect:
         serializedVersion: 2
         x: 32
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a9a673a36526efff858247712c07cd4
-      internalID: 616806465
+      spriteID: cbd7f2d8a0499ee06a78d8ab88983114
+      internalID: 1353021632
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: minisoapy_fly_2
+      name: Soapy_death_2
       rect:
         serializedVersion: 2
         x: 64
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d7daeb5bfc29e594b9a0e6fd4513338
-      internalID: -2079540166
+      spriteID: b8ed727b1a54c25f59c5a432d3ec8cef
+      internalID: 873200474
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: minisoapy_fly_3
+      name: Soapy_death_3
       rect:
         serializedVersion: 2
         x: 96
@@ -187,50 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ecaf3b9206078b20ea147d239d505a9a
-      internalID: -544824535
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: minisoapy_fly_4
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9aff67f1757bc8ed9934ad6565f00d7d
-      internalID: -1489842639
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: minisoapy_fly_5
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2b923ff741f1e74c98a4c30476751c71
-      internalID: 565400100
+      spriteID: 9e4829777f6c400e6948fd196390ed92
+      internalID: -1061381750
       vertices: []
       indices: 
       edges: []
@@ -246,12 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      minisoapy_fly_0: -1927177746
-      minisoapy_fly_1: 616806465
-      minisoapy_fly_2: -2079540166
-      minisoapy_fly_3: -544824535
-      minisoapy_fly_4: -1489842639
-      minisoapy_fly_5: 565400100
+      Soapy_death_0: 770927373
+      Soapy_death_1: 1353021632
+      Soapy_death_2: 873200474
+      Soapy_death_3: -1061381750
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
