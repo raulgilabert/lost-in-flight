@@ -42,6 +42,9 @@ TagManager:
   - name: Background
     uniqueID: 3124142691
     locked: 0
+  - name: Darkerizer
+    uniqueID: 2638979279
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
