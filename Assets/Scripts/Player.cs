@@ -38,6 +38,8 @@ public class Player : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
+        
+        GameManager.Instance.player = this;
     }
 
     // Start is called before the first frame update
