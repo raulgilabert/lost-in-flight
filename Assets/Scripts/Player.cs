@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private static readonly int HorizontalSpeed = Animator.StringToHash("HorizontalSpeed");
     private static readonly int Jump = Animator.StringToHash("Jump");
     private static readonly int Grounded = Animator.StringToHash("Grounded");
+    private static readonly int Death = Animator.StringToHash("Death");
 
     private Rigidbody2D _rigidbody;
     private Animator _animator;
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float stepCadence;
     [SerializeField] private Color soapyColor;
     public float soapyness;
+    [SerializeField] private float damageToSoapynessFactor;
     
     private void Awake()
     {
@@ -136,5 +138,21 @@ public class Player : MonoBehaviour
         {
             _jumpHeld = false;
         }
+    }
+
+    public void OnDamageReceived(float damage)
+    {
+        soapyness += damage * damageToSoapynessFactor;
+
+        if (soapyness >= 1)
+        {
+            _animator.SetTrigger(Death);
+            Destroy(GetComponent<DamageReceiver>());
+        }
+    }
+
+    public void OnDeathAnimationEnded()
+    {
+        // TODO: Reset?
     }
 }

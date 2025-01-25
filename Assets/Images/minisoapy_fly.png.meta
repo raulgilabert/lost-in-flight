@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 93ccf13583d1b4c2683654c31429ac3b
+guid: d2c07358008b3b754b1ab524b6216dfe
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bacty_walk_rosa_0
+      name: minisoapy_fly_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 93191f953dfb6d0bf977fff694cd1dd7
-      internalID: -1426639644
+      spriteID: 66f9a2b01fcdb22038b847c2ef8c8fcf
+      internalID: -1927177746
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bacty_walk_rosa_1
+      name: minisoapy_fly_1
       rect:
         serializedVersion: 2
         x: 32
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 392fc78a868e15da29532893fb5924ac
-      internalID: -420360654
+      spriteID: 8a9a673a36526efff858247712c07cd4
+      internalID: 616806465
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bacty_walk_rosa_2
+      name: minisoapy_fly_2
       rect:
         serializedVersion: 2
         x: 64
@@ -166,29 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e0e05e58274a5d7afbd35df875ea4e15
-      internalID: 788347160
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bacty_walk_rosa_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b1f4cdcf6c29026f8b77830defdead4a
-      internalID: 899722535
+      spriteID: 8d7daeb5bfc29e594b9a0e6fd4513338
+      internalID: -2079540166
       vertices: []
       indices: 
       edges: []
@@ -204,10 +183,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Bacty_walk_rosa_0: -1426639644
-      Bacty_walk_rosa_1: -420360654
-      Bacty_walk_rosa_2: 788347160
-      Bacty_walk_rosa_3: 899722535
+      minisoapy_fly_0: -1927177746
+      minisoapy_fly_1: 616806465
+      minisoapy_fly_2: -2079540166
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
