@@ -3,10 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 public class Player : MonoBehaviour
 {
+    private static readonly int HorizontalSpeed = Animator.StringToHash("HorizontalSpeed");
+    private static readonly int Jump = Animator.StringToHash("Jump");
+    private static readonly int Grounded = Animator.StringToHash("Grounded");
+
     private Rigidbody2D _rigidbody;
+    private Animator _animator;
+    private AudioSource _audioSource;
 
     private float _inputSpeed;
     private bool _inputJump;
@@ -14,15 +21,20 @@ public class Player : MonoBehaviour
     private bool _isGrounded;
     private int _jumpCount;
     private bool _jumpHeld;
+    private float _stepTimer;
 
     [SerializeField] private float baseMoveSpeed;
     [SerializeField] private float slipperyness;
     [SerializeField] private float jumpForce;
     [SerializeField] private float groundedRaycastDistance;
+    [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private float stepCadence;
     
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -35,11 +47,40 @@ public class Player : MonoBehaviour
         _jumpHeld = false;
     }
 
-    // Update is called once per frame
+    private void Update()
+    {
+        if (_stepTimer > 0)
+        {
+            _stepTimer -= Time.deltaTime;
+            if (_stepTimer <= 0 && _isGrounded)
+            {
+                _audioSource.pitch = Random.Range(0.9f, 1.1f);
+                _audioSource.Play();
+            }
+        }
+
+        if (Mathf.Abs(_rigidbody.velocity.x) > 0.1f)
+        {
+            if (_stepTimer <= 0) _stepTimer = stepCadence + Random.Range(-0.01f, +0.01f);
+        }
+        else
+        {
+            _stepTimer = 0;
+        }
+    }
+
     private void FixedUpdate()
     {
+        bool oldIsGrounded = _isGrounded;
         _isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundedRaycastDistance, LayerMask.GetMask("Ground"));
         Debug.DrawLine(transform.position, transform.position + Vector3.down * groundedRaycastDistance, _isGrounded ? Color.green : Color.red);
+        _animator.SetBool(Grounded, _isGrounded);
+
+        if (!oldIsGrounded && _isGrounded)
+        {
+            _audioSource.pitch = Random.Range(0.9f, 1.1f);
+            _audioSource.Play();
+        }
 
         if (_isGrounded) _jumpCount = 2;
         
@@ -64,9 +105,16 @@ public class Player : MonoBehaviour
             newVerticalSpeed = jumpForce;
             --_jumpCount;
             _jumpHeld = true;
+            _animator.SetTrigger(Jump);
         }
 
         _rigidbody.velocity = new Vector2(newSpeed, newVerticalSpeed);
+        _animator.SetFloat(HorizontalSpeed, newSpeed);
+
+        if (Mathf.Abs(newSpeed) > 0.1f)
+        {
+            sprite.flipX = newSpeed < 0;
+        }
     }
 
     private void OnMove(InputValue value)

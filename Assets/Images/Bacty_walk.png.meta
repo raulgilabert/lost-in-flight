@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0d01bff650935714aad2b9fc1419a2df
+guid: 1eb787e9eab76e8a5bedc534dad82cef
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,49 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bacty_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 60b0e4466c3453d489c2d83f203eeb88
-      internalID: -1047034446
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bacty_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7895d781cdce3ff4ea649f95d7790d04
-      internalID: 1985358732
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bacty_2
+      name: Bacty_walk_0
       rect:
         serializedVersion: 2
         x: 0
@@ -166,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f36d2e38dea0f274f97ccdfe5bc9735b
-      internalID: 1995495344
+      spriteID: a09ca0444e8c33397abbaede00379d59
+      internalID: -1646095755
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bacty_3
+      name: Bacty_walk_1
       rect:
         serializedVersion: 2
         x: 32
@@ -187,8 +145,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0b1051f5b690bb74caf6562519f52583
-      internalID: -1570746
+      spriteID: 82ab98785d630fa8fa19d7233d5a26c6
+      internalID: -583436595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bacty_walk_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8a00f6a816cdbda9a8c1937537b4aa0
+      internalID: 1231959025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bacty_walk_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e80762c241ef8ef6087a1c292b7b3fdb
+      internalID: 1470687552
       vertices: []
       indices: 
       edges: []
@@ -204,10 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Bacty_0: -1047034446
-      Bacty_1: 1985358732
-      Bacty_2: 1995495344
-      Bacty_3: -1570746
+      Bacty_walk_0: -1646095755
+      Bacty_walk_1: -583436595
+      Bacty_walk_2: 1231959025
+      Bacty_walk_3: 1470687552
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
