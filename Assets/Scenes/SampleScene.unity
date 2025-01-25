@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 838821160}
   - component: {fileID: 838821162}
   - component: {fileID: 838821161}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Suelo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
