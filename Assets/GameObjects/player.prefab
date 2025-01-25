@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 8787527856037688034}
   - component: {fileID: 1539962804587681951}
   - component: {fileID: 1432856604688291716}
+  - component: {fileID: 6223561515063028772}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -167,7 +168,7 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!61 &5075800132435272028
@@ -265,6 +266,7 @@ MonoBehaviour:
   stepCadence: 0.3
   soapyColor: {r: 1, g: 0, b: 1, a: 0.65882355}
   soapyness: 0
+  damageToSoapynessFactor: 0.1
 --- !u!82 &1432856604688291716
 AudioSource:
   m_ObjectHideFlags: 0
@@ -361,3 +363,30 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6223561515063028772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7042248397449456772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a36a36e8b1ac2054a8b710f02ef8f1eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onDamageReceived:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1539962804587681951}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnDamageReceived
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

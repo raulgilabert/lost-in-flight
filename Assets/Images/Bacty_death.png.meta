@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: efe9fcae097d241d8bd77c8801d88b55
+guid: 46ea5a49b99745f8e98686ebf67d4bbe
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bacty_idle_rosa_0
+      name: Bacty_death_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 295cac977fe4e73b09911e4f7339bb3a
-      internalID: -1876043422
+      spriteID: 475d7c0199838aeacbc6a4f4a56cc795
+      internalID: 1002672123
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bacty_idle_rosa_1
+      name: Bacty_death_1
       rect:
         serializedVersion: 2
         x: 32
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 784327c880ada3dc6a579e137ca74be4
-      internalID: 1116586650
+      spriteID: 474de377af64db89d92fa84808abb7b3
+      internalID: 837227615
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bacty_idle_rosa_2
+      name: Bacty_death_2
       rect:
         serializedVersion: 2
         x: 64
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a99af735763de884599d2b2360ffd3fd
-      internalID: 167611346
+      spriteID: fe4576abfcf5f98cb94445b1bc25d1df
+      internalID: 2019945712
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bacty_idle_rosa_3
+      name: Bacty_death_3
       rect:
         serializedVersion: 2
         x: 96
@@ -187,8 +187,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 20ea0a17abe5b8f4faa535bec4d46abd
-      internalID: 572759951
+      spriteID: ba1ad5d78e8ee0f4e8d07c6f7129b51e
+      internalID: -870270586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bacty_death_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e672b917d18cae943931b878f92ed7ab
+      internalID: 145645811
       vertices: []
       indices: 
       edges: []
@@ -204,10 +225,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Bacty_idle_rosa_0: -1876043422
-      Bacty_idle_rosa_1: 1116586650
-      Bacty_idle_rosa_2: 167611346
-      Bacty_idle_rosa_3: 572759951
+      Bacty_death_0: 1002672123
+      Bacty_death_1: 837227615
+      Bacty_death_2: 2019945712
+      Bacty_death_3: -870270586
+      Bacty_death_4: 145645811
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
