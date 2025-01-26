@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MiniSoapyFly : MonoBehaviour
 {
@@ -13,12 +14,14 @@ public class MiniSoapyFly : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
+    private AudioSource _audioSource;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -35,6 +38,8 @@ public class MiniSoapyFly : MonoBehaviour
     {
         speed = 0;
         _animator.SetTrigger(Explode);
+        _audioSource.pitch = Random.Range(0.8f, 1.2f);
+        _audioSource.Play();
     }
 
     public void OnExplosionEnd()
