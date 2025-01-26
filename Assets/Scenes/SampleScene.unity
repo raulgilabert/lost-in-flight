@@ -854,10 +854,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap_wall: {fileID: 563978131}
-  tilemap_platforms: {fileID: 0}
   grid: {fileID: 760811068}
   platform_gen: {fileID: 701722103}
-  height_init: 300
+  height_init: 100
   limit_tiles_left: -15
   limit_tiles_right: 15
   wall_1:

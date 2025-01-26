@@ -17,7 +17,7 @@ public class WallGenerator : MonoBehaviour
     public Tilemap tilemap_wall;
     public Grid grid;
     public PlatformsGenerator platform_gen;
-        
+
     private int max_height_generated;
     public int height_init;
     public int limit_tiles_left;
@@ -32,6 +32,8 @@ public class WallGenerator : MonoBehaviour
     private int next_to_gen_platform;
     private float map_width;
 
+    private float player_next_to_gen;
+
     public Tile[] wall_1 = new Tile[4]; // terracota
     public Tile wall_2; // racholas
     public Tile[] wall_3 = new Tile[4]; // piedra grande
@@ -43,18 +45,25 @@ public class WallGenerator : MonoBehaviour
         tile_kind = TileKind.TERRACOTA;
         last_tile_kind = TileKind.TERRACOTA;
         times_tile_repeated = 0;
-        next_to_gen_platform = UnityEngine.Random.Range(1, 3);
+        next_to_gen_platform = UnityEngine.Random.Range(2, 3);
         Debug.Log(next_to_gen_platform);
 
         map_width = grid.CellToWorld(new Vector3Int(limit_tiles_right, 0, 0)).x * 2;
 
         generate(0, height_init);
+
+        player_next_to_gen = 50;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (GameManager.Instance.player.transform.position.y > player_next_to_gen)
+        {
+            generate(last_change, last_change + 50);
+
+            player_next_to_gen += 50;
+        }
     }
 
     private void generate(int init_height, int end_height)
