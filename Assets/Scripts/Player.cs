@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource jumpAudioSource;
     [SerializeField] private AudioSource hurtAudioSource;
     [SerializeField] private AudioSource deathAudioSource;
+    [SerializeField] private ParticleSystem groundParticles;
     
     private void Awake()
     {
@@ -94,6 +95,8 @@ public class Player : MonoBehaviour
         _isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundedRaycastDistance, LayerMask.GetMask("Ground"));
         Debug.DrawLine(transform.position, transform.position + Vector3.down * groundedRaycastDistance, _isGrounded ? Color.green : Color.red);
         _animator.SetBool(Grounded, _isGrounded);
+        var groundParticlesEmission = groundParticles.emission;
+        groundParticlesEmission.enabled = _isGrounded;
 
         if (!oldIsGrounded && _isGrounded)
         {
@@ -159,6 +162,8 @@ public class Player : MonoBehaviour
     {
         
         soapyness += damage * damageToSoapynessFactor;
+        var groundParticlesMain = groundParticles.main;
+        groundParticlesMain.startColor = soapyColor;
 
         if (soapyness >= 1)
         {
