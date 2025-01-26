@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     private float _stepTimer;
     private bool _isDead;
 
+    private bool _isPaused;
+
     [SerializeField] private float baseMoveSpeed;
     [SerializeField] private float slipperynessFactor;
     [SerializeField] private float jumpForce;
@@ -40,6 +42,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource deathAudioSource;
     [SerializeField] private ParticleSystem groundParticles;
     [SerializeField] private Animator deathScreenAnimator;
+    [SerializeField] private GameObject pauseUI;
     
     private void Awake()
     {
@@ -187,5 +190,20 @@ public class Player : MonoBehaviour
     public void OnDeathAnimationEnded()
     {
         deathScreenAnimator.SetTrigger(Death);
+    }
+
+    public void Pause()
+    {
+        if (_isDead) return;
+
+        _isPaused = !_isPaused;
+
+        Time.timeScale = (_isPaused ? 0 : 1);
+        pauseUI.SetActive(_isPaused);
+    }
+
+    public void OnPause(InputValue value)
+    {
+        Pause();
     }
 }
