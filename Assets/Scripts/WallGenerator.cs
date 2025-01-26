@@ -34,6 +34,9 @@ public class WallGenerator : MonoBehaviour
 
     private float player_next_to_gen;
 
+    public MiniSoapyFloorGenerator soapy_floor_generator;
+    public int gen_limit;
+
     public Tile[] wall_1 = new Tile[4]; // terracota
     public Tile wall_2; // racholas
     public Tile[] wall_3 = new Tile[4]; // piedra grande
@@ -162,8 +165,17 @@ public class WallGenerator : MonoBehaviour
                 for (int j = 0; j < qtty_of_platforms; j++)
                 {
                     float size = UnityEngine.Random.Range(map_width / (qtty_of_platforms*2), (map_width) / qtty_of_platforms);
+                    float y_pos = grid.CellToWorld(new Vector3Int(0, i, 0)).y + UnityEngine.Random.Range(-0.5f, 0.5f);
 
-                    platform_gen.generate(new Vector3(left_pos + size / 2, grid.CellToWorld(new Vector3Int(0, i, 0)).y + UnityEngine.Random.Range(-0.5f, 0.5f), 0), texture, size);
+                    platform_gen.generate(new Vector3(left_pos + size / 2, y_pos, 0), texture, size);
+
+                    int gen_soapy_floor_random_num = UnityEngine.Random.Range(0, gen_limit);
+
+                    if (gen_soapy_floor_random_num == 0)
+                    {
+                        soapy_floor_generator.generate(new Vector3(UnityEngine.Random.Range((left_pos + 1f)/4, (left_pos + size - 1f)/4), y_pos + 0.16f, 0));
+                    }
+
                     left_pos += size + 40;
                 }
 
