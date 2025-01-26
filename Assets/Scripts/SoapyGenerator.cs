@@ -43,7 +43,7 @@ public class SoapyGenerator : MonoBehaviour
 
     private void Generate()
     {
-        GameObject s = Instantiate(soapy_go, new Vector3(Random.Range(min_x, max_x), 5, 0), Quaternion.identity);
+        GameObject s = Instantiate(soapy_go, transform.position + new Vector3(Random.Range(min_x, max_x), 0, 0), Quaternion.identity);
         s.GetComponent<Soapy>().velocity = Random.Range(minimumSoapySpeed, maximumSoapySpeed);
     }
 }

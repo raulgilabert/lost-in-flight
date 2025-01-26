@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     private int _jumpCount;
     private bool _jumpHeld;
     private float _stepTimer;
+    private bool _isDead;
 
     [SerializeField] private float baseMoveSpeed;
     [SerializeField] private float slipperynessFactor;
@@ -34,6 +35,10 @@ public class Player : MonoBehaviour
     [SerializeField] private Color soapyColor;
     public float soapyness;
     [SerializeField] private float damageToSoapynessFactor;
+    [SerializeField] private AudioSource jumpAudioSource;
+    [SerializeField] private AudioSource hurtAudioSource;
+    [SerializeField] private AudioSource deathAudioSource;
+    [SerializeField] private ParticleSystem groundParticles;
     
     private void Awake()
     {
@@ -52,6 +57,7 @@ public class Player : MonoBehaviour
         _isGrounded = false;
         _jumpCount = 0;
         _jumpHeld = false;
+        _isDead = false;
     }
 
     private void Update()
@@ -76,6 +82,11 @@ public class Player : MonoBehaviour
         }
 
         sprite.color = new Color(soapyColor.r, soapyColor.g, soapyColor.b, soapyColor.a * soapyness);
+
+        if (_isDead)
+        {
+            _animator.SetTrigger(Death);
+        }
     }
 
     private void FixedUpdate()
@@ -84,6 +95,8 @@ public class Player : MonoBehaviour
         _isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundedRaycastDistance, LayerMask.GetMask("Ground"));
         Debug.DrawLine(transform.position, transform.position + Vector3.down * groundedRaycastDistance, _isGrounded ? Color.green : Color.red);
         _animator.SetBool(Grounded, _isGrounded);
+        var groundParticlesEmission = groundParticles.emission;
+        groundParticlesEmission.enabled = _isGrounded;
 
         if (!oldIsGrounded && _isGrounded)
         {
@@ -115,6 +128,9 @@ public class Player : MonoBehaviour
             --_jumpCount;
             _jumpHeld = true;
             _animator.SetTrigger(Jump);
+            
+            jumpAudioSource.pitch = Random.Range(0.9f, 1.1f);
+            jumpAudioSource.Play();
         }
 
         _rigidbody.velocity = new Vector2(newSpeed, newVerticalSpeed);
@@ -128,11 +144,13 @@ public class Player : MonoBehaviour
 
     private void OnMove(InputValue value)
     {
+        if (_isDead) return;
         _inputSpeed = value.Get<float>();
     }
 
     private void OnJump(InputValue value)
     {
+        if (_isDead) return;
         _inputJump = value.Get<float>() > 0;
         if (!_inputJump)
         {
@@ -142,12 +160,25 @@ public class Player : MonoBehaviour
 
     public void OnDamageReceived(float damage)
     {
+        
         soapyness += damage * damageToSoapynessFactor;
+        var groundParticlesMain = groundParticles.main;
+        groundParticlesMain.startColor = soapyColor;
 
         if (soapyness >= 1)
         {
             _animator.SetTrigger(Death);
             Destroy(GetComponent<DamageReceiver>());
+            baseMoveSpeed = 0;
+            jumpForce = 0;
+            _isDead = true;
+            
+            deathAudioSource.Play();
+        }
+        else
+        {
+            hurtAudioSource.pitch = Random.Range(0.9f, 1.1f);
+            hurtAudioSource.Play();
         }
     }
 
