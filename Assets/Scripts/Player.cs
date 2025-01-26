@@ -98,6 +98,7 @@ public class Player : MonoBehaviour
         _animator.SetBool(Grounded, _isGrounded);
         var groundParticlesEmission = groundParticles.emission;
         groundParticlesEmission.enabled = _isGrounded;
+        groundParticlesEmission.rateOverDistanceMultiplier = 1 + 2 * soapyness;
 
         if (!oldIsGrounded && _isGrounded)
         {

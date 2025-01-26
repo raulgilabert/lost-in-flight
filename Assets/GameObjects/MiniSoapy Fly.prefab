@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8702342847699542628}
   - component: {fileID: 3028176182571155884}
   - component: {fileID: 5578622519910738665}
+  - component: {fileID: -3861686009527234867}
   m_Layer: 0
   m_Name: MiniSoapy Fly
   m_TagString: Untagged
@@ -261,6 +262,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-3861686009527234867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5104325882443686369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f681658a6d3a636a1bb6cdcef1f764b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8114707705485409823
 GameObject:
   m_ObjectHideFlags: 0
