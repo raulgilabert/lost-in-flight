@@ -5314,6 +5314,7 @@ GameObject:
   - component: {fileID: 1539962804587681951}
   - component: {fileID: 1432856604688291716}
   - component: {fileID: 6223561515063028772}
+  - component: {fileID: 3364652801822917353}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -5489,6 +5490,7 @@ MonoBehaviour:
   hurtAudioSource: {fileID: 2307572642896656942}
   deathAudioSource: {fileID: 4835474358936683301}
   groundParticles: {fileID: 7744879323230628830}
+  deathScreenAnimator: {fileID: 0}
 --- !u!82 &1432856604688291716
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5612,3 +5614,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3364652801822917353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7042248397449456772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 276ebf69ac1856c7782c37926d4bc735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitsPerPoint: 5
+  scoreText: {fileID: 0}
+  deathScoreText: {fileID: 0}

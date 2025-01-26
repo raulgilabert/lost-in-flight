@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource hurtAudioSource;
     [SerializeField] private AudioSource deathAudioSource;
     [SerializeField] private ParticleSystem groundParticles;
+    [SerializeField] private Animator deathScreenAnimator;
     
     private void Awake()
     {
@@ -184,6 +185,6 @@ public class Player : MonoBehaviour
 
     public void OnDeathAnimationEnded()
     {
-        // TODO: Reset?
+        deathScreenAnimator.SetTrigger(Death);
     }
 }
