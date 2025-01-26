@@ -154,7 +154,7 @@ public class WallGenerator : MonoBehaviour
                 {
                     float size = UnityEngine.Random.Range(map_width / (qtty_of_platforms*2), (map_width) / qtty_of_platforms);
 
-                    platform_gen.generate(new Vector3(left_pos + size / 2, grid.CellToWorld(new Vector3Int(0, i, 0)).y, 0), texture, size);
+                    platform_gen.generate(new Vector3(left_pos + size / 2, grid.CellToWorld(new Vector3Int(0, i, 0)).y + UnityEngine.Random.Range(-0.5f, 0.5f), 0), texture, size);
                     left_pos += size + 40;
                 }
 

@@ -28,10 +28,10 @@ public class PlatformsGenerator : MonoBehaviour
 
 
 
-        colliders[0].size = new Vector2(width/4 - 0.08f, platform.GetComponent<BoxCollider2D>().size.y);
-        colliders[1].size = new Vector2(width/4 - 0.08f, platform.GetComponent<BoxCollider2D>().size.y);
-        colliders[2].offset = new Vector2(-width / 8 + 0.04f, 0);
-        colliders[3].offset = new Vector2(width / 8 - 0.04f, 0);
+        colliders[0].size = new Vector2((width-0.04f)/4, platform.GetComponent<BoxCollider2D>().size.y);
+        colliders[1].size = new Vector2((width-0.04f)/4, platform.GetComponent<BoxCollider2D>().size.y);
+        colliders[2].offset = new Vector2(-(width - 0.02f) / 8, 0);
+        colliders[3].offset = new Vector2((width - 0.02f) / 8, 0);
         platform.transform.localScale = new Vector3(4, 4, 4);
     }
 }
