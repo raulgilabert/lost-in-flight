@@ -14,7 +14,9 @@ public class WallGenerator : MonoBehaviour
     };
 
     // Start is called before the first frame update
-    public Tilemap tilemap;
+    public Tilemap tilemap_wall;
+    public Grid grid;
+    public PlatformsGenerator platform_gen;
         
     private int max_height_generated;
     public int height_init;
@@ -27,6 +29,9 @@ public class WallGenerator : MonoBehaviour
     private TileKind last_tile_kind;
     private int times_tile_repeated;
 
+    private int next_to_gen_platform;
+    private float map_width;
+
     public Tile[] wall_1 = new Tile[4]; // terracota
     public Tile wall_2; // racholas
     public Tile[] wall_3 = new Tile[4]; // piedra grande
@@ -38,6 +43,10 @@ public class WallGenerator : MonoBehaviour
         tile_kind = TileKind.TERRACOTA;
         last_tile_kind = TileKind.TERRACOTA;
         times_tile_repeated = 0;
+        next_to_gen_platform = UnityEngine.Random.Range(1, 3);
+        Debug.Log(next_to_gen_platform);
+
+        map_width = grid.CellToWorld(new Vector3Int(limit_tiles_right, 0, 0)).x * 2;
 
         generate(0, height_init);
     }
@@ -50,11 +59,9 @@ public class WallGenerator : MonoBehaviour
 
     private void generate(int init_height, int end_height)
     {
-        // generar inicio del mapa
         for (int i = init_height; i < end_height; i++) {
             if ((i - last_change) % size == 0)
             {
-                Debug.Log(times_tile_repeated);
                 size = UnityEngine.Random.Range(5, 8);
                 last_change = i;
 
@@ -95,33 +102,80 @@ public class WallGenerator : MonoBehaviour
                         {
                             if (tile_kind == TileKind.TERRACOTA)
                             {
-                                tilemap.SetTile(new Vector3Int(j, i - 1, 0), wall_1[3 - (Math.Abs(j % 2) + 2 * (Math.Abs(i - 1) % 2))]);
+                                tilemap_wall.SetTile(new Vector3Int(j, i - 1, 0), wall_1[3 - (Math.Abs(j % 2) + 2 * (Math.Abs(i - 1) % 2))]);
                             }
                             else if (tile_kind == TileKind.RACHOLAS)
                             {
-                                tilemap.SetTile(new Vector3Int(j, i - 1, 0), wall_2);
+                                tilemap_wall.SetTile(new Vector3Int(j, i - 1, 0), wall_2);
                             }
                             else
                             {
-                                tilemap.SetTile(new Vector3Int(j, i - 1, 0), wall_3[3 - (Math.Abs(j % 2) + 2 * (Math.Abs(i - 1) % 2))]);
+                                tilemap_wall.SetTile(new Vector3Int(j, i - 1, 0), wall_3[3 - (Math.Abs(j % 2) + 2 * (Math.Abs(i - 1) % 2))]);
                             }
                         }
                     }
                 }
+            }
+            // generación de plataformas (aprox cada 2-3 iteraciones)
+            if (i == next_to_gen_platform)
+            {
+                int texture;
+                switch (tile_kind)
+                {
+                    case TileKind.TERRACOTA:
+                        {
+                            //Platformer.generate();
+                            texture = 0;
+
+                            break;
+                        }
+                    case TileKind.RACHOLAS:
+                        {
+                            texture = 1;
+                            break;
+                        }
+                    case TileKind.PIEDRA:
+                        {
+                            texture = 2;
+                            break;
+                        }
+                    default:
+                        {
+                            texture = 0;
+                            break;
+                        }
+                }
+
+                int qtty_of_platforms = UnityEngine.Random.Range(2, 5);
+
+                float left_pos = grid.CellToWorld(new Vector3Int(limit_tiles_left, 0, 0)).x*4;
+
+                for (int j = 0; j < qtty_of_platforms; j++)
+                {
+                    float size = UnityEngine.Random.Range(map_width / (qtty_of_platforms*2), (map_width) / qtty_of_platforms);
+
+                    platform_gen.generate(new Vector3(left_pos + size / 2, grid.CellToWorld(new Vector3Int(0, i, 0)).y, 0), texture, size);
+                    left_pos += size + 40;
+                }
+
+                //platform_gen.generate(grid.CellToWorld(new Vector3Int(-3, i, 0)), texture, 20);
+                next_to_gen_platform = i + UnityEngine.Random.Range(3, 5);
+
+                Debug.Log(next_to_gen_platform);
             }
 
             for (int j = limit_tiles_left;  j < limit_tiles_right; j++)
             {
                 if (tile_kind == TileKind.TERRACOTA)
                 {
-                    tilemap.SetTile(new Vector3Int(j, i, 0), wall_1[3 - (Math.Abs(j % 2) + 2 * (i % 2))]);
+                    tilemap_wall.SetTile(new Vector3Int(j, i, 0), wall_1[3 - (Math.Abs(j % 2) + 2 * (i % 2))]);
                 }
                 else if (tile_kind == TileKind.RACHOLAS)
                 {
-                    tilemap.SetTile(new Vector3Int(j, i, 0), wall_2);
+                    tilemap_wall.SetTile(new Vector3Int(j, i, 0), wall_2);
                 } else
                 {
-                    tilemap.SetTile(new Vector3Int(j, i, 0), wall_3[3 - (Math.Abs(j % 2) + 2 * (i % 2))]);
+                    tilemap_wall.SetTile(new Vector3Int(j, i, 0), wall_3[3 - (Math.Abs(j % 2) + 2 * (i % 2))]);
                 }
             }
 

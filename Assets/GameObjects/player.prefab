@@ -260,7 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseMoveSpeed: 10
   slipperynessFactor: 100
-  jumpForce: 8
+  jumpForce: 10
   groundedRaycastDistance: 0.85
   sprite: {fileID: 98633580318022220}
   stepCadence: 0.3
