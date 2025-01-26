@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Soapy : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Soapy : MonoBehaviour
     
     private Rigidbody2D _rb;
     private Animator _animator;
+    private AudioSource _audioSource;
     
     public float velocity;
 
@@ -16,6 +18,7 @@ public class Soapy : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -27,6 +30,8 @@ public class Soapy : MonoBehaviour
     {
         velocity = 0;
         _animator.SetTrigger(Death);
+        _audioSource.pitch = Random.Range(0.8f, 1.2f);
+        _audioSource.Play();
     }
 
     public void OnDeathEnd()

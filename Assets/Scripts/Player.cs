@@ -35,6 +35,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Color soapyColor;
     public float soapyness;
     [SerializeField] private float damageToSoapynessFactor;
+    [SerializeField] private AudioSource jumpAudioSource;
+    [SerializeField] private AudioSource hurtAudioSource;
+    [SerializeField] private AudioSource deathAudioSource;
     
     private void Awake()
     {
@@ -122,6 +125,9 @@ public class Player : MonoBehaviour
             --_jumpCount;
             _jumpHeld = true;
             _animator.SetTrigger(Jump);
+            
+            jumpAudioSource.pitch = Random.Range(0.9f, 1.1f);
+            jumpAudioSource.Play();
         }
 
         _rigidbody.velocity = new Vector2(newSpeed, newVerticalSpeed);
@@ -151,6 +157,7 @@ public class Player : MonoBehaviour
 
     public void OnDamageReceived(float damage)
     {
+        
         soapyness += damage * damageToSoapynessFactor;
 
         if (soapyness >= 1)
@@ -160,6 +167,13 @@ public class Player : MonoBehaviour
             baseMoveSpeed = 0;
             jumpForce = 0;
             _isDead = true;
+            
+            deathAudioSource.Play();
+        }
+        else
+        {
+            hurtAudioSource.pitch = Random.Range(0.9f, 1.1f);
+            hurtAudioSource.Play();
         }
     }
 
