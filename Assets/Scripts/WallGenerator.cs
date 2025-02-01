@@ -48,7 +48,7 @@ public class WallGenerator : MonoBehaviour
         tile_kind = TileKind.TERRACOTA;
         last_tile_kind = TileKind.TERRACOTA;
         times_tile_repeated = 0;
-        next_to_gen_platform = UnityEngine.Random.Range(3, 4);
+        next_to_gen_platform = UnityEngine.Random.Range(2, 4);
         Debug.Log(next_to_gen_platform);
 
         map_width = grid.CellToWorld(new Vector3Int(limit_tiles_right, 0, 0)).x * 2;
@@ -180,7 +180,7 @@ public class WallGenerator : MonoBehaviour
                 }
 
                 //platform_gen.generate(grid.CellToWorld(new Vector3Int(-3, i, 0)), texture, 20);
-                next_to_gen_platform = i + UnityEngine.Random.Range(3, 5);
+                next_to_gen_platform = i + UnityEngine.Random.Range(2, 4);
 
                 Debug.Log(next_to_gen_platform);
             }
