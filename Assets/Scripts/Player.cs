@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -76,7 +75,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Mathf.Abs(_rigidbody.velocity.x) > 0.1f)
+        if (Mathf.Abs(_rigidbody.linearVelocity.x) > 0.1f)
         {
             if (_stepTimer <= 0) _stepTimer = stepCadence + Random.Range(-0.01f, +0.01f);
         }
@@ -111,7 +110,7 @@ public class Player : MonoBehaviour
 
         if (_isGrounded) _jumpCount = 2;
         
-        float currentSpeed = _rigidbody.velocity.x;
+        float currentSpeed = _rigidbody.linearVelocity.x;
         float targetSpeed = baseMoveSpeed * _inputSpeed;
         float newSpeed;
         
@@ -124,7 +123,7 @@ public class Player : MonoBehaviour
             newSpeed = Mathf.Lerp(currentSpeed, targetSpeed, 0.5f);
         }
         
-        float currentVerticalSpeed = _rigidbody.velocity.y;
+        float currentVerticalSpeed = _rigidbody.linearVelocity.y;
         float newVerticalSpeed = currentVerticalSpeed;
 
         if (_inputJump && _jumpCount > 0 && (!_jumpHeld || _isGrounded))
@@ -138,7 +137,7 @@ public class Player : MonoBehaviour
             jumpAudioSource.Play();
         }
 
-        _rigidbody.velocity = new Vector2(newSpeed, newVerticalSpeed);
+        _rigidbody.linearVelocity = new Vector2(newSpeed, newVerticalSpeed);
         _animator.SetFloat(HorizontalSpeed, newSpeed);
 
         if (Mathf.Abs(newSpeed) > 0.1f)
