@@ -21,11 +21,12 @@ namespace Player
         private AudioSource _audioSource;
         private GroundDetector _groundDetector;
 
-        private float _inputSpeed;
-        private bool _inputJump;
-        
+        private InputAction _moveAction;
+        private InputAction _jumpAction;
+        private InputAction _pauseAction;
+
+        private bool _jumpPressedLastUpdate;
         private int _jumpCount;
-        private bool _jumpHeld;
         private float _stepTimer;
         private bool _isDead;
 
@@ -53,17 +54,19 @@ namespace Player
             _animator = GetComponent<Animator>();
             _audioSource = GetComponent<AudioSource>();
             _groundDetector = GetComponent<GroundDetector>();
-        
+
+            _moveAction = InputSystem.actions.FindAction("Move");
+            _jumpAction = InputSystem.actions.FindAction("Jump");
+            _pauseAction = InputSystem.actions.FindAction("Pause");
+            
             GameManager.Instance.player = this;
         }
 
         // Start is called before the first frame update
         private void Start()
         {
-            _inputSpeed = 0;
-            _inputJump = false;
+            _jumpPressedLastUpdate = false;
             _jumpCount = 0;
-            _jumpHeld = false;
             _isDead = false;
             
             _groundDetector.onGroundedStateChange.AddListener(OnGroundedStateChange);
@@ -77,6 +80,10 @@ namespace Player
             {
                 _animator.SetTrigger(Death);
             }
+
+            _jumpPressedLastUpdate = _jumpPressedLastUpdate || _jumpAction.WasPressedThisFrame();
+            
+            if (_pauseAction.WasPressedThisFrame()) Pause();
         }
 
         private void FixedUpdate()
@@ -89,7 +96,7 @@ namespace Player
             if (_groundDetector.IsGrounded) _jumpCount = 2;
         
             float currentSpeed = _rigidbody.linearVelocity.x;
-            float targetSpeed = baseMoveSpeed * _inputSpeed;
+            float targetSpeed = baseMoveSpeed * _moveAction.ReadValue<float>();
             float newSpeed;
         
             if (Mathf.Abs(targetSpeed) < Mathf.Abs(currentSpeed))
@@ -104,11 +111,10 @@ namespace Player
             float currentVerticalSpeed = _rigidbody.linearVelocity.y;
             float newVerticalSpeed = currentVerticalSpeed;
 
-            if (_inputJump && _jumpCount > 0 && (!_jumpHeld || _groundDetector.IsGrounded))
+            if (_jumpAction.IsPressed() && _jumpCount > 0 && (_jumpPressedLastUpdate || _groundDetector.IsGrounded))
             {
                 newVerticalSpeed = jumpForce;
                 --_jumpCount;
-                _jumpHeld = true;
                 _animator.SetTrigger(Jump);
             
                 jumpAudioSource.pitch = Random.Range(0.9f, 1.1f);
@@ -122,22 +128,8 @@ namespace Player
             {
                 sprite.flipX = newSpeed < 0;
             }
-        }
 
-        private void OnMove(InputValue value)
-        {
-            if (_isDead) return;
-            _inputSpeed = value.Get<float>();
-        }
-
-        private void OnJump(InputValue value)
-        {
-            if (_isDead) return;
-            _inputJump = value.Get<float>() > 0 && !_isPaused;
-            if (!_inputJump)
-            {
-                _jumpHeld = false;
-            }
+            _jumpPressedLastUpdate = false;
         }
 
         public void OnDamageReceived(float damage)
@@ -192,11 +184,6 @@ namespace Player
             {
                 EventSystem.current.SetSelectedGameObject(pauseUIFocus);
             }
-        }
-
-        public void OnPause(InputValue value)
-        {
-            Pause();
         }
     }
 }
