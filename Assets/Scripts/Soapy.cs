@@ -23,7 +23,7 @@ public class Soapy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rb.velocity = new Vector3(0, -velocity, 0);
+        _rb.linearVelocity = new Vector3(0, -velocity, 0);
     }
 
     public void OnDealtDamage(float damage)

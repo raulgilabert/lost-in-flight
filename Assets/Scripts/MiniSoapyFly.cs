@@ -31,7 +31,7 @@ public class MiniSoapyFly : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rigidbody.velocity = (flyRight ? Vector2.right : Vector2.left) * speed;
+        _rigidbody.linearVelocity = (flyRight ? Vector2.right : Vector2.left) * speed;
     }
 
     public void OnDamageDealt()
