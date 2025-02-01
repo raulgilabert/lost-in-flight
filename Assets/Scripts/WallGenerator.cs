@@ -102,7 +102,7 @@ public class WallGenerator : MonoBehaviour
                 {
                     times_tile_repeated = 0;
                 }
-                // generación de cambio de textura
+                // generaciï¿½n de cambio de textura
 
                 if (i != 0)
                 {
@@ -128,7 +128,7 @@ public class WallGenerator : MonoBehaviour
                     }
                 }
             }
-            // generación de plataformas (aprox cada 2-3 iteraciones)
+            // generaciï¿½n de plataformas (aprox cada 2-3 iteraciones)
             if (i == next_to_gen_platform)
             {
                 int texture;
@@ -160,7 +160,7 @@ public class WallGenerator : MonoBehaviour
 
                 int qtty_of_platforms = UnityEngine.Random.Range(2, 5);
 
-                float left_pos = grid.CellToWorld(new Vector3Int(limit_tiles_left, 0, 0)).x*4;
+                float left_pos = grid.CellToWorld(new Vector3Int(limit_tiles_left, 0, 0)).x;
 
                 for (int j = 0; j < qtty_of_platforms; j++)
                 {
@@ -173,10 +173,10 @@ public class WallGenerator : MonoBehaviour
 
                     if (gen_soapy_floor_random_num == 0)
                     {
-                        soapy_floor_generator.generate(new Vector3(UnityEngine.Random.Range((left_pos + 1f)/4, (left_pos + size - 1f)/4), y_pos + 0.16f, 0));
+                        soapy_floor_generator.generate(new Vector3(UnityEngine.Random.Range((left_pos + 1f), (left_pos + size - 1f)), y_pos + 0.16f, 0));
                     }
 
-                    left_pos += size + 40;
+                    left_pos += size + UnityEngine.Random.Range(0.5f, 4f);
                 }
 
                 //platform_gen.generate(grid.CellToWorld(new Vector3Int(-3, i, 0)), texture, 20);

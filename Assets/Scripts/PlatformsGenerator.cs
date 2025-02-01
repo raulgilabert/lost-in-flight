@@ -20,18 +20,18 @@ public class PlatformsGenerator : MonoBehaviour
 
     public void generate(Vector3 position, int texture, float width)
     {
-        GameObject platform = Instantiate(platform_base, new Vector3(position.x/4, position.y, position.z), Quaternion.identity);
+        GameObject platform = Instantiate(platform_base, new Vector3(position.x, position.y, position.z), Quaternion.identity);
         platform.GetComponent<SpriteRenderer>().sprite = textures[texture];
-        platform.GetComponent<SpriteRenderer>().size = new Vector2(width/4, platform.GetComponent<SpriteRenderer>().size.y);
+        platform.GetComponent<SpriteRenderer>().size = new Vector2(width, platform.GetComponent<SpriteRenderer>().size.y);
 
         BoxCollider2D[] colliders = platform.GetComponents<BoxCollider2D>();
 
 
 
-        colliders[0].size = new Vector2((width-0.04f)/4, platform.GetComponent<BoxCollider2D>().size.y);
-        colliders[1].size = new Vector2((width-0.04f)/4, platform.GetComponent<BoxCollider2D>().size.y);
-        colliders[2].offset = new Vector2(-(width - 0.02f) / 8, 0);
-        colliders[3].offset = new Vector2((width - 0.02f) / 8, 0);
-        platform.transform.localScale = new Vector3(4, 4, 4);
+        colliders[0].size = new Vector2((width-0.04f), colliders[0].size.y);
+        colliders[1].size = new Vector2((width-0.04f), colliders[1].size.y);
+        colliders[2].offset = new Vector2(-(width - 0.02f) / 2, 0);
+        colliders[3].offset = new Vector2((width - 0.02f) / 2, 0);
+        platform.transform.localScale = new Vector3(1, 1, 1);
     }
 }
