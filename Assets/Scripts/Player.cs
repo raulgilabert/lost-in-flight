@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
@@ -41,7 +42,9 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource deathAudioSource;
     [SerializeField] private ParticleSystem groundParticles;
     [SerializeField] private Animator deathScreenAnimator;
+    [SerializeField] private GameObject deathUIFocus;
     [SerializeField] private GameObject pauseUI;
+    [SerializeField] private GameObject pauseUIFocus;
     
     private void Awake()
     {
@@ -155,7 +158,7 @@ public class Player : MonoBehaviour
     private void OnJump(InputValue value)
     {
         if (_isDead) return;
-        _inputJump = value.Get<float>() > 0;
+        _inputJump = value.Get<float>() > 0 && !_isPaused;
         if (!_inputJump)
         {
             _jumpHeld = false;
@@ -189,6 +192,7 @@ public class Player : MonoBehaviour
     public void OnDeathAnimationEnded()
     {
         deathScreenAnimator.SetTrigger(Death);
+        EventSystem.current.SetSelectedGameObject(deathUIFocus);
     }
 
     public void Pause()
@@ -199,6 +203,11 @@ public class Player : MonoBehaviour
 
         Time.timeScale = (_isPaused ? 0 : 1);
         pauseUI.SetActive(_isPaused);
+
+        if (pauseUI.activeInHierarchy)
+        {
+            EventSystem.current.SetSelectedGameObject(pauseUIFocus);
+        }
     }
 
     public void OnPause(InputValue value)

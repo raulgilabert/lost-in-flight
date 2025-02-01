@@ -3168,12 +3168,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
-    m_Value: 0
+    Enabled: 1
+    m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20170927
-  m_LegacyPriority: 10
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 1888985141}
     LookAtTarget: {fileID: 0}
@@ -3346,6 +3346,14 @@ PrefabInstance:
       propertyPath: pauseUI
       value: 
       objectReference: {fileID: 989639070}
+    - target: {fileID: 1539962804587681951, guid: fd7242475c8d92f4985f6b74a01ce770, type: 3}
+      propertyPath: deathUIFocus
+      value: 
+      objectReference: {fileID: 2062443322}
+    - target: {fileID: 1539962804587681951, guid: fd7242475c8d92f4985f6b74a01ce770, type: 3}
+      propertyPath: pauseUIFocus
+      value: 
+      objectReference: {fileID: 713338427}
     - target: {fileID: 1539962804587681951, guid: fd7242475c8d92f4985f6b74a01ce770, type: 3}
       propertyPath: deathScreenAnimator
       value: 
