@@ -797,7 +797,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.4107144
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -822,7 +822,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.4359999, z: -10}
+  m_LocalPosition: {x: 0, y: -1.1359998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3189,7 +3189,7 @@ Transform:
   m_GameObject: {fileID: 1786836370}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.4359999, z: -10}
+  m_LocalPosition: {x: 0, y: -1.1359998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3251,7 +3251,7 @@ MonoBehaviour:
     CustomLookAtTarget: 1
   Lens:
     FieldOfView: 60
-    OrthographicSize: 2.5
+    OrthographicSize: 4
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -3430,6 +3430,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 989639070}
     - target: {fileID: 1539962804587681951, guid: fd7242475c8d92f4985f6b74a01ce770, type: 3}
+      propertyPath: jumpForce
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1539962804587681951, guid: fd7242475c8d92f4985f6b74a01ce770, type: 3}
       propertyPath: deathUIFocus
       value: 
       objectReference: {fileID: 2062443322}
@@ -3437,6 +3441,10 @@ PrefabInstance:
       propertyPath: pauseUIFocus
       value: 
       objectReference: {fileID: 713338427}
+    - target: {fileID: 1539962804587681951, guid: fd7242475c8d92f4985f6b74a01ce770, type: 3}
+      propertyPath: baseMoveSpeed
+      value: 7.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1539962804587681951, guid: fd7242475c8d92f4985f6b74a01ce770, type: 3}
       propertyPath: deathScreenAnimator
       value: 
