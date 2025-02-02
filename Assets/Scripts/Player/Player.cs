@@ -1,3 +1,4 @@
+using Health;
 using Physics;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,6 +13,7 @@ namespace Player
         private static readonly int Death = Animator.StringToHash("Death");
 
         private PlayerMovement _playerMovement;
+        private Health.Health _health;
         private Rigidbody2D _rigidbody;
         private Animator _animator;
         private AudioSource _audioSource;
@@ -19,8 +21,6 @@ namespace Player
 
         [SerializeField] private SpriteRenderer sprite;
         [SerializeField] private Color soapyColor;
-        public float soapyness;
-        [SerializeField] private float damageToSoapynessFactor;
         [SerializeField] private AudioSource jumpAudioSource;
         [SerializeField] private AudioSource hurtAudioSource;
         [SerializeField] private AudioSource deathAudioSource;
@@ -29,12 +29,11 @@ namespace Player
         [SerializeField] private GameObject deathUIFocus;
         [SerializeField] private GameObject pauseUI;
         [SerializeField] private GameObject pauseUIFocus;
-        
-        public bool IsDead { get; private set; }
     
         private void Awake()
         {
             _playerMovement = GetComponent<PlayerMovement>();
+            _health = GetComponent<Health.Health>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
             _audioSource = GetComponent<AudioSource>();
@@ -46,17 +45,16 @@ namespace Player
         // Start is called before the first frame update
         private void Start()
         {
-            IsDead = false;
-            
             _playerMovement.onJump.AddListener(OnJump);
+            _health.onHealthChanged.AddListener(OnHealthChanged);
+            _health.onDamaged.AddListener(OnDamaged);
+            _health.onDeath.AddListener(OnDeath);
             _groundDetector.onGroundedStateChange.AddListener(OnGroundedStateChange);
         }
 
         private void Update()
         {
-            sprite.color = new Color(soapyColor.r, soapyColor.g, soapyColor.b, soapyColor.a * soapyness);
-
-            if (IsDead)
+            if (_health.IsDead)
             {
                 _animator.SetTrigger(Death);
             }
@@ -64,11 +62,6 @@ namespace Player
 
         private void FixedUpdate()
         {
-            _animator.SetBool(Grounded, _groundDetector.IsGrounded);
-            var groundParticlesEmission = groundParticles.emission;
-            groundParticlesEmission.enabled = _groundDetector.IsGrounded;
-            groundParticlesEmission.rateOverDistanceMultiplier = 1 + 2 * soapyness;
-
             _animator.SetFloat(HorizontalSpeed, _rigidbody.linearVelocityX);
 
             if (Mathf.Abs(_rigidbody.linearVelocityX) > 0.1f)
@@ -85,27 +78,32 @@ namespace Player
             jumpAudioSource.Play();
         }
 
-        public void OnDamageReceived(float damage)
+        private void OnHealthChanged(float health)
         {
-        
-            soapyness += damage * damageToSoapynessFactor;
+            sprite.color = new Color(soapyColor.r, soapyColor.g, soapyColor.b, soapyColor.a * (1 - health));
+            
+            var groundParticlesEmission = groundParticles.emission;
+            groundParticlesEmission.rateOverDistanceMultiplier = 1 + 2 * (1 - health);
+            
             var groundParticlesMain = groundParticles.main;
             groundParticlesMain.startColor = soapyColor;
+        }
 
-            if (soapyness >= 1)
-            {
-                _animator.SetTrigger(Death);
-                Destroy(GetComponent<DamageReceiver>());
-                IsDead = true;
-                _playerMovement.enabled = false;
+        private void OnDamaged(float damage, bool isDead)
+        {
+            if (isDead) return;
             
-                deathAudioSource.Play();
-            }
-            else
-            {
-                hurtAudioSource.pitch = Random.Range(0.9f, 1.1f);
-                hurtAudioSource.Play();
-            }
+            hurtAudioSource.pitch = Random.Range(0.9f, 1.1f);
+            hurtAudioSource.Play();
+        }
+
+        private void OnDeath()
+        {
+            _animator.SetTrigger(Death);
+            Destroy(GetComponent<DamageReceiver>());
+            _playerMovement.enabled = false;
+            
+            deathAudioSource.Play();
         }
 
         public void OnDeathAnimationEnded()
@@ -121,6 +119,11 @@ namespace Player
                 _audioSource.pitch = Random.Range(0.9f, 1.1f);
                 _audioSource.Play();
             }
+            
+            _animator.SetBool(Grounded, grounded);
+            
+            var groundParticlesEmission = groundParticles.emission;
+            groundParticlesEmission.enabled = grounded;
         }
     }
 }

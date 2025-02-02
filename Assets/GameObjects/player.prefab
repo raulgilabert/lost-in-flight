@@ -5471,6 +5471,7 @@ GameObject:
   - component: {fileID: 6223561515063028772}
   - component: {fileID: 3364652801822917353}
   - component: {fileID: 1432856604688291716}
+  - component: {fileID: 771355787179112466}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -5608,7 +5609,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 98633580318022220}
   soapyColor: {r: 1, g: 0, b: 1, a: 0.65882355}
-  soapyness: 0
   damageToSoapynessFactor: 0.1
   jumpAudioSource: {fileID: 4371097696293565351}
   hurtAudioSource: {fileID: 2307572642896656942}
@@ -5667,21 +5667,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a36a36e8b1ac2054a8b710f02ef8f1eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 0.1
   onDamageReceived:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1539962804587681951}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: OnDamageReceived
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &3364652801822917353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5794,3 +5783,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &771355787179112466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7042248397449456772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80f4b9ba531c414c8e0a85a4d5239413, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  onHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []

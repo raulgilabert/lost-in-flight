@@ -13,7 +13,7 @@ namespace Player
 
         public UnityEvent onJump;
         
-        private Player _player;
+        private Health.Health _health;
         private Rigidbody2D _rigidbody;
         private GroundDetector _groundDetector;
         
@@ -25,7 +25,7 @@ namespace Player
 
         private void Awake()
         {
-            _player = GetComponent<Player>();
+            _health = GetComponent<Health.Health>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _groundDetector = GetComponent<GroundDetector>();
 
@@ -54,7 +54,7 @@ namespace Player
         
             if (Mathf.Abs(targetSpeed) < Mathf.Abs(currentSpeed))
             {
-                newSpeed = Mathf.Lerp(currentSpeed, targetSpeed, 1f / Mathf.Max(1, slipperynessFactor * _player.soapyness + 1));
+                newSpeed = Mathf.Lerp(currentSpeed, targetSpeed, 1f / Mathf.Max(1, slipperynessFactor * (1 - _health.health) + 1));
             }
             else
             {

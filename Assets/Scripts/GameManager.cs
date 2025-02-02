@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
 
     public void TogglePause()
     {
-        if (player.IsDead) return;
+        if (player.GetComponent<Health.Health>().IsDead) return;
         
         IsPaused = !IsPaused;
         Time.timeScale = IsPaused ? 0 : 1;
