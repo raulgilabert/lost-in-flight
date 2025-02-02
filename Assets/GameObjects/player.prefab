@@ -5466,10 +5466,11 @@ GameObject:
   - component: {fileID: 138407212307020146}
   - component: {fileID: 5075800132435272028}
   - component: {fileID: 1539962804587681951}
-  - component: {fileID: 1432856604688291716}
+  - component: {fileID: 3139212680731280195}
+  - component: {fileID: 526559772816238657}
   - component: {fileID: 6223561515063028772}
   - component: {fileID: 3364652801822917353}
-  - component: {fileID: 526559772816238657}
+  - component: {fileID: 1432856604688291716}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -5605,9 +5606,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f747d7c5e52f6123295d8a153935d8ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMoveSpeed: 7.5
-  slipperynessFactor: 100
-  jumpForce: 8
   sprite: {fileID: 98633580318022220}
   soapyColor: {r: 1, g: 0, b: 1, a: 0.65882355}
   soapyness: 0
@@ -5620,6 +5618,85 @@ MonoBehaviour:
   deathUIFocus: {fileID: 0}
   pauseUI: {fileID: 0}
   pauseUIFocus: {fileID: 0}
+--- !u!114 &3139212680731280195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7042248397449456772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9458cb1abd7a48aca84034397690cdaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMovementSpeed: 7.5
+  slipperynessFactor: 100
+  jumpForce: 8
+  onJump:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &526559772816238657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7042248397449456772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb0dc7caceaf4d2eaeae09ae55c57022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  raycastDistance: 0.55
+  onGroundedStateChange:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &6223561515063028772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7042248397449456772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a36a36e8b1ac2054a8b710f02ef8f1eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onDamageReceived:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1539962804587681951}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnDamageReceived
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3364652801822917353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7042248397449456772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 276ebf69ac1856c7782c37926d4bc735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitsPerPoint: 5
+  scoreText: {fileID: 0}
+  deathScoreText: {fileID: 0}
 --- !u!82 &1432856604688291716
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5717,64 +5794,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6223561515063028772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7042248397449456772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a36a36e8b1ac2054a8b710f02ef8f1eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onDamageReceived:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1539962804587681951}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: OnDamageReceived
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &3364652801822917353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7042248397449456772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 276ebf69ac1856c7782c37926d4bc735, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitsPerPoint: 5
-  scoreText: {fileID: 0}
-  deathScoreText: {fileID: 0}
---- !u!114 &526559772816238657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7042248397449456772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb0dc7caceaf4d2eaeae09ae55c57022, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  raycastDistance: 0.55
-  onGroundedStateChange:
-    m_PersistentCalls:
-      m_Calls: []

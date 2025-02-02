@@ -1,11 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Physics;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using Random = UnityEngine.Random;
 
 namespace Player
 {
@@ -16,21 +11,12 @@ namespace Player
         private static readonly int Grounded = Animator.StringToHash("Grounded");
         private static readonly int Death = Animator.StringToHash("Death");
 
+        private PlayerMovement _playerMovement;
         private Rigidbody2D _rigidbody;
         private Animator _animator;
         private AudioSource _audioSource;
         private GroundDetector _groundDetector;
 
-        private InputAction _moveAction;
-        private InputAction _jumpAction;
-
-        private bool _jumpPressedLastUpdate;
-        private int _jumpCount;
-        private float _stepTimer;
-
-        [SerializeField] private float baseMoveSpeed;
-        [SerializeField] private float slipperynessFactor;
-        [SerializeField] private float jumpForce;
         [SerializeField] private SpriteRenderer sprite;
         [SerializeField] private Color soapyColor;
         public float soapyness;
@@ -48,13 +34,11 @@ namespace Player
     
         private void Awake()
         {
+            _playerMovement = GetComponent<PlayerMovement>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
             _audioSource = GetComponent<AudioSource>();
             _groundDetector = GetComponent<GroundDetector>();
-
-            _moveAction = InputSystem.actions.FindAction("Move");
-            _jumpAction = InputSystem.actions.FindAction("Jump");
             
             GameManager.Instance.player = this;
         }
@@ -62,10 +46,9 @@ namespace Player
         // Start is called before the first frame update
         private void Start()
         {
-            _jumpPressedLastUpdate = false;
-            _jumpCount = 0;
             IsDead = false;
             
+            _playerMovement.onJump.AddListener(OnJump);
             _groundDetector.onGroundedStateChange.AddListener(OnGroundedStateChange);
         }
 
@@ -77,8 +60,6 @@ namespace Player
             {
                 _animator.SetTrigger(Death);
             }
-
-            _jumpPressedLastUpdate = _jumpPressedLastUpdate || _jumpAction.WasPressedThisFrame();
         }
 
         private void FixedUpdate()
@@ -88,43 +69,20 @@ namespace Player
             groundParticlesEmission.enabled = _groundDetector.IsGrounded;
             groundParticlesEmission.rateOverDistanceMultiplier = 1 + 2 * soapyness;
 
-            if (_groundDetector.IsGrounded) _jumpCount = 2;
-        
-            float currentSpeed = _rigidbody.linearVelocity.x;
-            float targetSpeed = baseMoveSpeed * _moveAction.ReadValue<float>();
-            float newSpeed;
-        
-            if (Mathf.Abs(targetSpeed) < Mathf.Abs(currentSpeed))
-            {
-                newSpeed = Mathf.Lerp(currentSpeed, targetSpeed, 1f / Mathf.Max(1, slipperynessFactor * soapyness + 1));
-            }
-            else
-            {
-                newSpeed = Mathf.Lerp(currentSpeed, targetSpeed, 0.5f);
-            }
-        
-            float currentVerticalSpeed = _rigidbody.linearVelocity.y;
-            float newVerticalSpeed = currentVerticalSpeed;
+            _animator.SetFloat(HorizontalSpeed, _rigidbody.linearVelocityX);
 
-            if (_jumpAction.IsPressed() && _jumpCount > 0 && (_jumpPressedLastUpdate || _groundDetector.IsGrounded))
+            if (Mathf.Abs(_rigidbody.linearVelocityX) > 0.1f)
             {
-                newVerticalSpeed = jumpForce;
-                --_jumpCount;
-                _animator.SetTrigger(Jump);
+                sprite.flipX = _rigidbody.linearVelocityX < 0;
+            }
+        }
+
+        private void OnJump()
+        {
+            _animator.SetTrigger(Jump);
             
-                jumpAudioSource.pitch = Random.Range(0.9f, 1.1f);
-                jumpAudioSource.Play();
-            }
-
-            _rigidbody.linearVelocity = new Vector2(newSpeed, newVerticalSpeed);
-            _animator.SetFloat(HorizontalSpeed, newSpeed);
-
-            if (Mathf.Abs(newSpeed) > 0.1f)
-            {
-                sprite.flipX = newSpeed < 0;
-            }
-
-            _jumpPressedLastUpdate = false;
+            jumpAudioSource.pitch = Random.Range(0.9f, 1.1f);
+            jumpAudioSource.Play();
         }
 
         public void OnDamageReceived(float damage)
@@ -138,9 +96,8 @@ namespace Player
             {
                 _animator.SetTrigger(Death);
                 Destroy(GetComponent<DamageReceiver>());
-                baseMoveSpeed = 0;
-                jumpForce = 0;
                 IsDead = true;
+                _playerMovement.enabled = false;
             
                 deathAudioSource.Play();
             }
