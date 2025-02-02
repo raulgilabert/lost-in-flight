@@ -16,14 +16,10 @@ namespace Player
         private Health.Health _health;
         private Rigidbody2D _rigidbody;
         private Animator _animator;
-        private AudioSource _audioSource;
         private GroundDetector _groundDetector;
 
         [SerializeField] private SpriteRenderer sprite;
         [SerializeField] private Color soapyColor;
-        [SerializeField] private AudioSource jumpAudioSource;
-        [SerializeField] private AudioSource hurtAudioSource;
-        [SerializeField] private AudioSource deathAudioSource;
         [SerializeField] private ParticleSystem groundParticles;
         [SerializeField] private Animator deathScreenAnimator;
         [SerializeField] private GameObject deathUIFocus;
@@ -36,7 +32,6 @@ namespace Player
             _health = GetComponent<Health.Health>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
-            _audioSource = GetComponent<AudioSource>();
             _groundDetector = GetComponent<GroundDetector>();
             
             GameManager.Instance.player = this;
@@ -73,9 +68,6 @@ namespace Player
         private void OnJump()
         {
             _animator.SetTrigger(Jump);
-            
-            jumpAudioSource.pitch = Random.Range(0.9f, 1.1f);
-            jumpAudioSource.Play();
         }
 
         private void OnHealthChanged(float health)
@@ -84,17 +76,12 @@ namespace Player
             
             var groundParticlesEmission = groundParticles.emission;
             groundParticlesEmission.rateOverDistanceMultiplier = 1 + 2 * (1 - health);
-            
-            var groundParticlesMain = groundParticles.main;
-            groundParticlesMain.startColor = soapyColor;
         }
 
         private void OnDamaged(float damage, bool isDead)
         {
-            if (isDead) return;
-            
-            hurtAudioSource.pitch = Random.Range(0.9f, 1.1f);
-            hurtAudioSource.Play();
+            var groundParticlesMain = groundParticles.main;
+            groundParticlesMain.startColor = soapyColor;
         }
 
         private void OnDeath()
@@ -102,8 +89,6 @@ namespace Player
             _animator.SetTrigger(Death);
             Destroy(GetComponent<DamageReceiver>());
             _playerMovement.enabled = false;
-            
-            deathAudioSource.Play();
         }
 
         public void OnDeathAnimationEnded()
@@ -112,14 +97,8 @@ namespace Player
             EventSystem.current.SetSelectedGameObject(deathUIFocus);
         }
 
-        public void OnGroundedStateChange(bool grounded)
+        private void OnGroundedStateChange(bool grounded)
         {
-            if (grounded)
-            {
-                _audioSource.pitch = Random.Range(0.9f, 1.1f);
-                _audioSource.Play();
-            }
-            
             _animator.SetBool(Grounded, grounded);
             
             var groundParticlesEmission = groundParticles.emission;

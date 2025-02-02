@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8386307680204302627}
   - component: {fileID: 4835474358936683301}
+  - component: {fileID: 4760079853574280207}
   m_Layer: 0
-  m_Name: death audio
+  m_Name: Death SFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,6 +130,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4760079853574280207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093814945589519175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49132746159341858598f078a2cb84d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxPitchOffset: 0
+  mode: 2
 --- !u!1 &2487290349087404394
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,8 +154,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5801781074531337746}
   - component: {fileID: 4371097696293565351}
+  - component: {fileID: 6329822512740372730}
   m_Layer: 0
-  m_Name: jump audio
+  m_Name: Jump SFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -258,6 +274,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6329822512740372730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2487290349087404394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eb1f4e421424527b91f96623f5fe86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxPitchOffset: 0.1
 --- !u!1 &2764806250035923416
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,6 +298,7 @@ GameObject:
   - component: {fileID: 710699731694405759}
   - component: {fileID: 3140429984756688333}
   - component: {fileID: 6707852101282920351}
+  - component: {fileID: 7762867494168332368}
   m_Layer: 0
   m_Name: Step SFX
   m_TagString: Untagged
@@ -400,9 +430,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6834e43dfe3a20069a3cd04169b3ab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxPitchOffset: 0.1
   horizontalVelocityThreshold: 0.1
   stepCadence: 0.3
   maxStepCadenceOffset: 0.01
+--- !u!114 &7762867494168332368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2764806250035923416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c60a62fa76041f5b52aba5ad7012784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxPitchOffset: 0.1
 --- !u!1 &3212796764954386144
 GameObject:
@@ -414,8 +457,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2026708031061360811}
   - component: {fileID: 2307572642896656942}
+  - component: {fileID: 4172956082890280646}
   m_Layer: 0
-  m_Name: hurt audio
+  m_Name: Damaged SFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -533,6 +577,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4172956082890280646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3212796764954386144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49132746159341858598f078a2cb84d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxPitchOffset: 0.1
+  mode: 1
 --- !u!1 &3415739100018279552
 GameObject:
   m_ObjectHideFlags: 0
@@ -5493,11 +5551,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6277604707918395506}
+  - {fileID: 4477646486434141777}
+  - {fileID: 710699731694405759}
   - {fileID: 5801781074531337746}
   - {fileID: 2026708031061360811}
   - {fileID: 8386307680204302627}
-  - {fileID: 4477646486434141777}
-  - {fileID: 710699731694405759}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &6403324690605407283
@@ -5609,9 +5667,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 98633580318022220}
   soapyColor: {r: 1, g: 0, b: 1, a: 0.65882355}
-  damageToSoapynessFactor: 0.1
-  jumpAudioSource: {fileID: 4371097696293565351}
-  hurtAudioSource: {fileID: 2307572642896656942}
   deathAudioSource: {fileID: 4835474358936683301}
   groundParticles: {fileID: 7744879323230628830}
   deathScreenAnimator: {fileID: 0}

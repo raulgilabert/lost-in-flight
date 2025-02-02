@@ -1,33 +1,34 @@
 using Physics;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Player
+namespace SFX
 {
-    [RequireComponent(typeof(AudioSource))]
-    public class StepSfx : MonoBehaviour
+    public class StepSfx : SfxTrigger
     {
         private GroundDetector _groundDetector;
         private Rigidbody2D _rigidbody;
-        private AudioSource _audioSource;
 
         [SerializeField] private float horizontalVelocityThreshold;
         [SerializeField] private float stepCadence;
         [SerializeField] private float maxStepCadenceOffset;
-        [SerializeField] private float maxPitchOffset;
 
         private float _stepTimer;
         
-        void Start()
+        private new void Start()
         {
+            base.Start();
+            
             _groundDetector = GetComponentInParent<GroundDetector>();
             _rigidbody = GetComponentInParent<Rigidbody2D>();
-            _audioSource = GetComponent<AudioSource>();
         }
 
-        void Update()
+        private void Update()
         {
-            if (!_groundDetector.IsGrounded) return;
+            if (!_groundDetector.IsGrounded)
+            {
+                _stepTimer = 0;
+                return;
+            }
             
             TickStepTimer();
             RestartTimer();
@@ -41,11 +42,7 @@ namespace Player
             _stepTimer -= Time.deltaTime;
             
             // Perform end action
-            if (_stepTimer <= 0)
-            {
-                _audioSource.pitch = Random.Range(1f - maxPitchOffset, 1f + maxPitchOffset);
-                _audioSource.PlayOneShot(_audioSource.clip);
-            }
+            if (_stepTimer <= 0) Play();
         }
 
         private void RestartTimer()
