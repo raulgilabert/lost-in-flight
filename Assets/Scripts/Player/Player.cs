@@ -23,14 +23,10 @@ namespace Player
 
         private InputAction _moveAction;
         private InputAction _jumpAction;
-        private InputAction _pauseAction;
 
         private bool _jumpPressedLastUpdate;
         private int _jumpCount;
         private float _stepTimer;
-        private bool _isDead;
-
-        private bool _isPaused;
 
         [SerializeField] private float baseMoveSpeed;
         [SerializeField] private float slipperynessFactor;
@@ -47,6 +43,8 @@ namespace Player
         [SerializeField] private GameObject deathUIFocus;
         [SerializeField] private GameObject pauseUI;
         [SerializeField] private GameObject pauseUIFocus;
+        
+        public bool IsDead { get; private set; }
     
         private void Awake()
         {
@@ -57,7 +55,6 @@ namespace Player
 
             _moveAction = InputSystem.actions.FindAction("Move");
             _jumpAction = InputSystem.actions.FindAction("Jump");
-            _pauseAction = InputSystem.actions.FindAction("Pause");
             
             GameManager.Instance.player = this;
         }
@@ -67,7 +64,7 @@ namespace Player
         {
             _jumpPressedLastUpdate = false;
             _jumpCount = 0;
-            _isDead = false;
+            IsDead = false;
             
             _groundDetector.onGroundedStateChange.AddListener(OnGroundedStateChange);
         }
@@ -76,14 +73,12 @@ namespace Player
         {
             sprite.color = new Color(soapyColor.r, soapyColor.g, soapyColor.b, soapyColor.a * soapyness);
 
-            if (_isDead)
+            if (IsDead)
             {
                 _animator.SetTrigger(Death);
             }
 
             _jumpPressedLastUpdate = _jumpPressedLastUpdate || _jumpAction.WasPressedThisFrame();
-            
-            if (_pauseAction.WasPressedThisFrame()) Pause();
         }
 
         private void FixedUpdate()
@@ -145,7 +140,7 @@ namespace Player
                 Destroy(GetComponent<DamageReceiver>());
                 baseMoveSpeed = 0;
                 jumpForce = 0;
-                _isDead = true;
+                IsDead = true;
             
                 deathAudioSource.Play();
             }
@@ -168,21 +163,6 @@ namespace Player
             {
                 _audioSource.pitch = Random.Range(0.9f, 1.1f);
                 _audioSource.Play();
-            }
-        }
-
-        public void Pause()
-        {
-            if (_isDead) return;
-
-            _isPaused = !_isPaused;
-
-            Time.timeScale = (_isPaused ? 0 : 1);
-            pauseUI.SetActive(_isPaused);
-
-            if (pauseUI.activeInHierarchy)
-            {
-                EventSystem.current.SetSelectedGameObject(pauseUIFocus);
             }
         }
     }

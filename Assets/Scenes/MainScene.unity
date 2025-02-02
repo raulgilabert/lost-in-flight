@@ -1321,7 +1321,8 @@ GameObject:
   - component: {fileID: 713338432}
   - component: {fileID: 713338431}
   - component: {fileID: 713338430}
-  - component: {fileID: 713338429}
+  - component: {fileID: 713338434}
+  - component: {fileID: 713338433}
   m_Layer: 5
   m_Name: Resume Button
   m_TagString: Untagged
@@ -1349,19 +1350,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 30}
   m_SizeDelta: {x: 140, y: 30}
   m_Pivot: {x: 0.5, y: 0}
---- !u!114 &713338429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 713338427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e05e43cbad78ac499bc42dfbc0ee1b9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeAnimator: {fileID: 688298527}
 --- !u!114 &713338430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1406,9 +1394,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1888985145}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: Pause
+      - m_Target: {fileID: 713338433}
+        m_TargetAssemblyTypeName: UI.ResumeButton, Assembly-CSharp
+        m_MethodName: Resume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1456,6 +1444,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713338427}
   m_CullTransparentMesh: 1
+--- !u!114 &713338433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713338427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adda8839c680444a834b4a1195f87d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &713338434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713338427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c5eb56f25ee47e28b5c4962fcead462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &760811067
 GameObject:
   m_ObjectHideFlags: 0
@@ -1707,13 +1719,14 @@ GameObject:
   - component: {fileID: 989639074}
   - component: {fileID: 989639073}
   - component: {fileID: 989639072}
+  - component: {fileID: 989639075}
   m_Layer: 5
   m_Name: Pause
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &989639071
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1795,6 +1808,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989639070}
   m_CullTransparentMesh: 1
+--- !u!114 &989639075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989639070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cab0f137ed3444bbb653ca7309035a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reversed: 0
 --- !u!1 &1029186622
 GameObject:
   m_ObjectHideFlags: 0
@@ -2465,7 +2491,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -3282,7 +3308,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -3398,17 +3424,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1634528120570378918, guid: fd7242475c8d92f4985f6b74a01ce770, type: 3}
   m_PrefabInstance: {fileID: 1888985140}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1888985145 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1539962804587681951, guid: fd7242475c8d92f4985f6b74a01ce770, type: 3}
-  m_PrefabInstance: {fileID: 1888985140}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f747d7c5e52f6123295d8a153935d8ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1985182104
 GameObject:
   m_ObjectHideFlags: 0
@@ -3548,6 +3563,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  onTogglePause:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &2050971603
 Transform:
   m_ObjectHideFlags: 0
