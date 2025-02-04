@@ -72,8 +72,6 @@ namespace Player
 
         private void OnHealthChanged(float health)
         {
-            sprite.color = new Color(soapyColor.r, soapyColor.g, soapyColor.b, soapyColor.a * (1 - health));
-            
             var groundParticlesEmission = groundParticles.emission;
             groundParticlesEmission.rateOverDistanceMultiplier = 1 + 2 * (1 - health);
         }
