@@ -22,6 +22,7 @@ public class WallGenerator : MonoBehaviour
     public int height_init;
     public int limit_tiles_left;
     public int limit_tiles_right;
+    public int player_next_to_gen_magic;
 
     private int last_change;
     private int size;
@@ -49,13 +50,13 @@ public class WallGenerator : MonoBehaviour
         last_tile_kind = TileKind.TERRACOTA;
         times_tile_repeated = 0;
         next_to_gen_platform = UnityEngine.Random.Range(2, 4);
-        Debug.Log(next_to_gen_platform);
+        //Debug.Log(next_to_gen_platform);
 
         map_width = grid.CellToWorld(new Vector3Int(limit_tiles_right, 0, 0)).x * 2;
 
         generate(0, height_init);
 
-        player_next_to_gen = 50;
+        player_next_to_gen = player_next_to_gen_magic;
     }
 
     // Update is called once per frame
@@ -63,9 +64,9 @@ public class WallGenerator : MonoBehaviour
     {
         if (GameManager.Instance.player.transform.position.y > player_next_to_gen)
         {
-            generate(last_change, last_change + 50);
+            generate(last_change, last_change + player_next_to_gen_magic);
 
-            player_next_to_gen += 50;
+            player_next_to_gen += player_next_to_gen_magic;
         }
     }
 
@@ -182,7 +183,7 @@ public class WallGenerator : MonoBehaviour
                 //platform_gen.generate(grid.CellToWorld(new Vector3Int(-3, i, 0)), texture, 20);
                 next_to_gen_platform = i + UnityEngine.Random.Range(2, 4);
 
-                Debug.Log(next_to_gen_platform);
+                //Debug.Log(next_to_gen_platform);
             }
 
             for (int j = limit_tiles_left;  j < limit_tiles_right; j++)
