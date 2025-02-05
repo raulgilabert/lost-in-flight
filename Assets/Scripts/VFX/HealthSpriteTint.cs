@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Health
+namespace VFX
 {
     public class HealthSpriteTint : MonoBehaviour
     {
@@ -10,7 +10,7 @@ namespace Health
         
         private void Awake() {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            GetComponentInParent<Health>().onHealthChanged.AddListener(OnHealthChanged);
+            GetComponentInParent<Health.Health>().onHealthChanged.AddListener(OnHealthChanged);
         }
 
         private void OnHealthChanged(float health)

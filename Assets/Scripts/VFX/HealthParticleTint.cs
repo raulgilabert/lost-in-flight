@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace Health
+namespace VFX
 {
     public class HealthParticleTint : MonoBehaviour
     {
@@ -12,7 +11,7 @@ namespace Health
         private void Awake()
         {
             _particleSystem = GetComponent<ParticleSystem>();
-            GetComponentInParent<Health>().onHealthChanged.AddListener(OnHealthChanged);
+            GetComponentInParent<Health.Health>().onHealthChanged.AddListener(OnHealthChanged);
         }
 
         private void OnHealthChanged(float health)
