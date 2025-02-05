@@ -91,9 +91,6 @@ namespace Player
         private void OnGroundedStateChange(bool grounded)
         {
             _animator.SetBool(Grounded, grounded);
-            
-            var groundParticlesEmission = groundParticles.emission;
-            groundParticlesEmission.enabled = grounded;
         }
     }
 }
