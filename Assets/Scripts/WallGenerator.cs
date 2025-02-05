@@ -8,9 +8,9 @@ public class WallGenerator : MonoBehaviour
 {
     enum TileKind
     {
-        TERRACOTA,
-        RACHOLAS,
-        PIEDRA
+        Sandstone,
+        Tile,
+        Stone
     };
 
     // Start is called before the first frame update
@@ -26,8 +26,8 @@ public class WallGenerator : MonoBehaviour
 
     private int last_change;
     private int size;
-    private TileKind tile_kind;
-    private TileKind last_tile_kind;
+    private TileKind _tileKind;
+    private TileKind _lastTileKind;
     private int times_tile_repeated;
 
     private int next_to_gen_platform;
@@ -46,8 +46,8 @@ public class WallGenerator : MonoBehaviour
     {
         last_change = 0;
         size = 1;
-        tile_kind = TileKind.TERRACOTA;
-        last_tile_kind = TileKind.TERRACOTA;
+        _tileKind = TileKind.Sandstone;
+        _lastTileKind = TileKind.Sandstone;
         times_tile_repeated = 0;
         next_to_gen_platform = UnityEngine.Random.Range(2, 4);
         //Debug.Log(next_to_gen_platform);
@@ -69,6 +69,21 @@ public class WallGenerator : MonoBehaviour
             player_next_to_gen += player_next_to_gen_magic;
         }
     }
+    
+    private TileBase SetTile(TileKind tileKind, int x, int y)
+    {
+        switch (tileKind)
+        {
+            case TileKind.Sandstone:
+                return wallSandstone[3 - (Math.Abs(x % 2) + 2 * (Math.Abs(y) % 2))];
+            case TileKind.Tile:
+                return wallTile;
+            case TileKind.Stone:
+                return wallStone[3 - (Math.Abs(x % 2) + 2 * (Math.Abs(y) % 2))];
+            default:
+                return null;
+        }
+    }
 
     private void Generate(int initHeight, int endHeight)
     {
@@ -82,7 +97,8 @@ public class WallGenerator : MonoBehaviour
         {
             for (int x = 0; x < width; ++x)
             {
-                tiles[y*width + x] = wallSandstone[0];
+
+                tiles[y * width + x] = SetTile(_tileKind, x, y);
             }
         }
         
