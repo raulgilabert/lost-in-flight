@@ -42,7 +42,6 @@ namespace Player
         {
             _playerMovement.onJump.AddListener(OnJump);
             _health.onHealthChanged.AddListener(OnHealthChanged);
-            _health.onDamaged.AddListener(OnDamaged);
             _health.onDeath.AddListener(OnDeath);
             _groundDetector.onGroundedStateChange.AddListener(OnGroundedStateChange);
         }
@@ -74,12 +73,6 @@ namespace Player
         {
             var groundParticlesEmission = groundParticles.emission;
             groundParticlesEmission.rateOverDistanceMultiplier = 1 + 2 * (1 - health);
-        }
-
-        private void OnDamaged(float damage, bool isDead)
-        {
-            var groundParticlesMain = groundParticles.main;
-            groundParticlesMain.startColor = soapyColor;
         }
 
         private void OnDeath()
