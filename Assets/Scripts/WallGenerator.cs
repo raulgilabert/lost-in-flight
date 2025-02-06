@@ -24,11 +24,11 @@ public class WallGenerator : MonoBehaviour
     public int limitTilesRight;
     public int player_next_to_gen_magic;
 
-    private int last_change;
-    private int size;
+    private int _lastChange;
+    private int _size;
     private TileKind _tileKind;
     private TileKind _lastTileKind;
-    private int times_tile_repeated;
+    private int _timesTileRepeated;
 
     private int next_to_gen_platform;
     private float map_width;
@@ -44,11 +44,11 @@ public class WallGenerator : MonoBehaviour
 
     void Start()
     {
-        last_change = 0;
-        size = 1;
+        _lastChange = 0;
+        _size = 1;
         _tileKind = TileKind.Sandstone;
         _lastTileKind = TileKind.Sandstone;
-        times_tile_repeated = 0;
+        _timesTileRepeated = 0;
         next_to_gen_platform = UnityEngine.Random.Range(2, 4);
         //Debug.Log(next_to_gen_platform);
 
@@ -64,7 +64,7 @@ public class WallGenerator : MonoBehaviour
     {
         if (GameManager.Instance.player.transform.position.y > player_next_to_gen)
         {
-            Generate(last_change, last_change + player_next_to_gen_magic);
+            Generate(_lastChange, _lastChange + player_next_to_gen_magic);
 
             player_next_to_gen += player_next_to_gen_magic;
         }
@@ -72,19 +72,28 @@ public class WallGenerator : MonoBehaviour
     
     private TileBase SetTile(TileKind tileKind, int x, int y)
     {
-        switch (tileKind)
+        return tileKind switch
         {
-            case TileKind.Sandstone:
-                return wallSandstone[3 - (Math.Abs(x % 2) + 2 * (Math.Abs(y) % 2))];
-            case TileKind.Tile:
-                return wallTile;
-            case TileKind.Stone:
-                return wallStone[3 - (Math.Abs(x % 2) + 2 * (Math.Abs(y) % 2))];
-            default:
-                return null;
-        }
+            TileKind.Sandstone => wallSandstone[3 - (Math.Abs(x % 2) + 2 * (Math.Abs(y) % 2))],
+            TileKind.Tile => wallTile,
+            TileKind.Stone => wallStone[3 - (Math.Abs(x % 2) + 2 * (Math.Abs(y) % 2))],
+            _ => (TileBase)null
+        };
     }
 
+    private static TileKind GetRandomTileKind()
+    {
+        int randomNum = UnityEngine.Random.Range(0, 3);
+
+        return randomNum switch
+        {
+            0 => TileKind.Sandstone,
+            1 => TileKind.Tile,
+            2 => TileKind.Stone,
+            _ => TileKind.Sandstone
+        };
+    }
+    
     private void Generate(int initHeight, int endHeight)
     {
         int width = limitTilesRight - limitTilesLeft;
@@ -95,11 +104,37 @@ public class WallGenerator : MonoBehaviour
 
         for (int y = 0; y < height; ++y)
         {
+            if ((y - _lastChange) % _size == 0)
+            {
+                _size = UnityEngine.Random.Range(5, 8);
+                _lastChange = y;
+                
+                do
+                {
+                    _tileKind = GetRandomTileKind();
+                } while (_tileKind == _lastTileKind && _timesTileRepeated == 2);
+                
+                _timesTileRepeated = (_tileKind == _lastTileKind) ? _timesTileRepeated + 1 : 0;
+                
+                if (y != 0)
+                {
+                    for (int x = 0; x < width; ++x)
+                    {
+                        int randomNumTransition = UnityEngine.Random.Range(0, 2);
+
+                        if (randomNumTransition == 0)
+                        {
+                            tiles[(y - 1) * width + x] = SetTile(_tileKind, x, y - 1);
+                        }
+                    }
+                }
+            }
+            
             for (int x = 0; x < width; ++x)
             {
-
                 tiles[y * width + x] = SetTile(_tileKind, x, y);
             }
+            _lastTileKind = _tileKind;
         }
         
         tilemapWall.SetTilesBlock(bounds, tiles);
