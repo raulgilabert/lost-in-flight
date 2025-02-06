@@ -1286,7 +1286,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 701722102}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f7c469fb0583f141b6e674f0dfc38c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d6b790a48c575e40ac042fcb70b0f5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   textures:
@@ -1984,7 +1984,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1102216099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72d107e76cf3d4745b88615439cafa5f, type: 3}
+  m_Script: {fileID: 11500000, guid: d40359c91985aecb58388e5c47be5b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   soapy_go: {fileID: 7908904043598501684, guid: 0bcba7751fc950261a9a57631172caa1, type: 3}
