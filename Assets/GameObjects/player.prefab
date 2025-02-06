@@ -5492,6 +5492,7 @@ GameObject:
   - component: {fileID: 6277604707918395506}
   - component: {fileID: 98633580318022220}
   - component: {fileID: 5600656095739868844}
+  - component: {fileID: 6982897215963372644}
   m_Layer: 0
   m_Name: sprite
   m_TagString: Untagged
@@ -5611,6 +5612,21 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
+--- !u!114 &6982897215963372644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5697105569852349475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae32f1f018d4bac8d229310539f94a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xMode: 1
+  yMode: 0
+  threshold: 0.1
 --- !u!1 &7042248397449456772
 GameObject:
   m_ObjectHideFlags: 0
