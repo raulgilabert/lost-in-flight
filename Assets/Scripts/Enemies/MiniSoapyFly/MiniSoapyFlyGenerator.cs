@@ -1,5 +1,5 @@
+using System.Collections;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Enemies.MiniSoapyFly
 {
@@ -15,24 +15,23 @@ namespace Enemies.MiniSoapyFly
         public float maximumMiniSoapySpeed;
         public bool flyRight;
 
-        private float _spawnTimer;
-
-        // Update is called once per frame
-        void Update()
+        private void OnEnable()
         {
-            _spawnTimer -= Time.deltaTime;
-
-            if (_spawnTimer <= 0)
-            {
-                _spawnTimer = Random.Range(cadence - maxCadenceOffset, cadence + maxCadenceOffset);
-                Generate();
-            }
+            StartCoroutine(GenerateLoop());
         }
 
-        private void OnDrawGizmos()
+        private void OnDisable()
         {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawLine(transform.position + Vector3.up * min_y, transform.position + Vector3.up * max_y);
+            StopAllCoroutines();
+        }
+
+        private IEnumerator GenerateLoop()
+        {
+            while (true)
+            {
+                Generate();
+                yield return new WaitForSeconds(Random.Range(cadence - maxCadenceOffset, cadence + maxCadenceOffset));
+            }
         }
 
         private void Generate()
@@ -41,6 +40,12 @@ namespace Enemies.MiniSoapyFly
             MiniSoapyFly miniSoapyFly = s.GetComponent<MiniSoapyFly>();
             miniSoapyFly.speed = Random.Range(minimumMiniSoapySpeed, maximumMiniSoapySpeed);
             miniSoapyFly.flyRight = flyRight;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(transform.position + Vector3.up * min_y, transform.position + Vector3.up * max_y);
         }
     }
 }
