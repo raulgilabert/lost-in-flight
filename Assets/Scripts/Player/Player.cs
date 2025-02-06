@@ -1,3 +1,4 @@
+using GlobalState;
 using UnityEngine;
 
 namespace Player
