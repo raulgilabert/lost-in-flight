@@ -1526,22 +1526,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a606601c7d42091488f5ec4c8f3fbb81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap_wall: {fileID: 563978131}
+  tilemapWall: {fileID: 563978131}
   grid: {fileID: 760811068}
   platform_gen: {fileID: 701722103}
   height_init: 50
-  limit_tiles_left: -15
-  limit_tiles_right: 15
+  limitTilesLeft: -15
+  limitTilesRight: 15
   player_next_to_gen_magic: 25
   soapy_floor_generator: {fileID: 1102216100}
   gen_limit: 5
-  wall_1:
+  wallSandstone:
   - {fileID: 11400000, guid: 92741997e131b7242ab6cb95610d6dfe, type: 2}
   - {fileID: 11400000, guid: 1b3f85af2e1449242b2ed46c3ab82811, type: 2}
   - {fileID: 11400000, guid: a4a9d86ef14ad754aa6b27f097e43d17, type: 2}
   - {fileID: 11400000, guid: 831f3a1e19d8d794296591fcf8160e67, type: 2}
-  wall_2: {fileID: 11400000, guid: c028c01c4e795514b893685e44037e14, type: 2}
-  wall_3:
+  wallTile: {fileID: 11400000, guid: c028c01c4e795514b893685e44037e14, type: 2}
+  wallStone:
   - {fileID: 11400000, guid: 2f857b49a3e427c4397331ba0d0da35e, type: 2}
   - {fileID: 11400000, guid: 7f82d23f121175d4a8f53d3bdb1ebc4f, type: 2}
   - {fileID: 11400000, guid: 31a4a31db4976fa419bb6c462f83fe7f, type: 2}
