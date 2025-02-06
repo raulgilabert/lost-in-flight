@@ -9,7 +9,6 @@ namespace Player
         private static readonly int Death = Animator.StringToHash("Death");
 
         [SerializeField] private Animator deathScreenAnimator;
-        [SerializeField] private GameObject deathUIFocus;
 
         private void Awake()
         {
@@ -31,7 +30,6 @@ namespace Player
         public void OnDeathAnimationEnded()
         {
             deathScreenAnimator.SetTrigger(Death);
-            EventSystem.current.SetSelectedGameObject(deathUIFocus);
         }
     }
 }
