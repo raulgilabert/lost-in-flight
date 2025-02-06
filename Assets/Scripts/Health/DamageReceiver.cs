@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,9 +9,12 @@ namespace Health
         [SerializeField] private float damageMultiplier = 1f;
         public UnityEvent<float> onDamageReceived;
     
-        public void ReceiveDamage(float damage)
+        public bool ReceiveDamage(float damage)
         {
+            if (!isActiveAndEnabled) return false;
+            
             onDamageReceived.Invoke(damage * damageMultiplier);
+            return true;
         }
     }
 }
