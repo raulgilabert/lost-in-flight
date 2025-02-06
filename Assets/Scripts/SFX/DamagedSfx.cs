@@ -15,9 +15,9 @@ namespace SFX
 
         [SerializeField] private Mode mode;
         
-        private new void Start()
+        private new void Awake()
         {
-            base.Start();
+            base.Awake();
             
             GetComponentInParent<Health.Health>().onDamaged.AddListener(OnDamaged);
         }
