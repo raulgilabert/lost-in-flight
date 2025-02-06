@@ -1,5 +1,5 @@
+using System.Collections;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Enemies.Soapy
 {
@@ -14,24 +14,29 @@ namespace Enemies.Soapy
         public float minimumSoapySpeed;
         public float maximumSoapySpeed;
 
-        private float _spawnTimer;
-    
-        // Start is called before the first frame update
-        void Start()
+        private void OnEnable()
         {
-        
+            StartCoroutine(GenerateLoop());
         }
 
-        // Update is called once per frame
-        void Update()
+        private void OnDisable()
         {
-            _spawnTimer -= Time.deltaTime;
+            StopAllCoroutines();
+        }
 
-            if (_spawnTimer <= 0)
+        private IEnumerator GenerateLoop()
+        {
+            while (true)
             {
-                _spawnTimer = Random.Range(cadence - maxCadenceOffset, cadence + maxCadenceOffset);
                 Generate();
+                yield return new WaitForSeconds(Random.Range(cadence - maxCadenceOffset, cadence + maxCadenceOffset));
             }
+        }
+        
+        private void Generate()
+        {
+            GameObject s = Instantiate(soapy_go, transform.position + new Vector3(Random.Range(min_x, max_x), 0, 0), Quaternion.identity);
+            s.GetComponent<Soapy>().velocity = Random.Range(minimumSoapySpeed, maximumSoapySpeed);
         }
 
         private void OnDrawGizmos()
@@ -40,10 +45,5 @@ namespace Enemies.Soapy
             Gizmos.DrawLine(transform.position + Vector3.right * min_x, transform.position + Vector3.right * max_x);
         }
 
-        private void Generate()
-        {
-            GameObject s = Instantiate(soapy_go, transform.position + new Vector3(Random.Range(min_x, max_x), 0, 0), Quaternion.identity);
-            s.GetComponent<Soapy>().velocity = Random.Range(minimumSoapySpeed, maximumSoapySpeed);
-        }
     }
 }
