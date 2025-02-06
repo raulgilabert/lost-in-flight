@@ -9,7 +9,7 @@ namespace SFX
 
         [SerializeField] private float maxPitchOffset;
         
-        protected void Start()
+        protected void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
         }
