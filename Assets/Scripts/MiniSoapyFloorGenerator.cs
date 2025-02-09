@@ -18,7 +18,7 @@ public class MiniSoapyFloorGenerator : MonoBehaviour
     {
     }
 
-    public void generate(Vector3 position)
+    public void Generate(Vector3 position)
     {
         GameObject s = Instantiate(soapy_go, transform.position, Quaternion.identity);
 
