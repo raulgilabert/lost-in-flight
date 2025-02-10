@@ -5790,7 +5790,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseMovementSpeed: 7.5
   slipperynessFactor: 100
-  jumpForce: 8
+  jumpForce: 9
   onJump:
     m_PersistentCalls:
       m_Calls: []
