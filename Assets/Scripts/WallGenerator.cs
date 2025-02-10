@@ -148,7 +148,7 @@ public class WallGenerator : MonoBehaviour
                 
                 _timesTileRepeated = (_tileKind == _lastTileKind) ? _timesTileRepeated + 1 : 0;
                 
-                if (y != initHeight || initHeight != 0)
+                if (y != 0)
                 {
                     for (int x = 0; x < width; ++x)
                     {
