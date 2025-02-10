@@ -1529,10 +1529,10 @@ MonoBehaviour:
   tilemapWall: {fileID: 563978131}
   grid: {fileID: 760811068}
   platformGen: {fileID: 701722103}
-  heightInit: 50
+  heightInit: 25
   limitTilesLeft: -15
   limitTilesRight: 15
-  playerNextToGenMagic: 25
+  playerNextToGenMagic: 12
   soapyFloorGenerator: {fileID: 1102216100}
   genLimit: 3
   wallSandstone:
