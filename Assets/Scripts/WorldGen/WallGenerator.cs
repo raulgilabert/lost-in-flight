@@ -5,16 +5,15 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace WorldGen
-{
+{    
+    public enum TileKind
+    {
+        Sandstone,
+        Tile,
+        Stone
+    }
     public class WallGenerator : MonoBehaviour
     {
-        enum TileKind
-        {
-            Sandstone,
-            Tile,
-            Stone
-        };
-
         // Start is called before the first frame update
         [SerializeField] private Tilemap tilemapWall;
         [SerializeField] private Grid grid;
@@ -91,6 +90,7 @@ namespace WorldGen
             };
         }
 
+        /*
         private void GeneratePlatforms(TileKind tileKind, int y)
         {
             int qttyOfPlatforms = UnityEngine.Random.Range(2, 5);
@@ -125,6 +125,7 @@ namespace WorldGen
          
             _nextToGenPlatform = y + UnityEngine.Random.Range(2, 4);
         }
+        */
     
         private void Generate(int initHeight, int endHeight)
         {
@@ -164,7 +165,9 @@ namespace WorldGen
             
                 if (y + initHeight == _nextToGenPlatform)
                 {
-                    GeneratePlatforms(_tileKind, y + initHeight);
+                    platformGen.Generate(_tileKind, y + initHeight, limitTilesLeft, limitTilesRight);
+                    
+                    _nextToGenPlatform += UnityEngine.Random.Range(2, 4);
                 }
          
                 for (int x = 0; x < width; ++x)
