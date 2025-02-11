@@ -14,14 +14,14 @@ public class WallGenerator : MonoBehaviour
     };
 
     // Start is called before the first frame update
-    public Tilemap tilemapWall;
+    public Tilemap tilemap_wall;
     public Grid grid;
     public PlatformsGenerator platform_gen;
 
-    private int maxHeightGenerated;
+    private int max_height_generated;
     public int height_init;
-    public int limitTilesLeft;
-    public int limitTilesRight;
+    public int limit_tiles_left;
+    public int limit_tiles_right;
     public int player_next_to_gen_magic;
 
     private int last_change;
@@ -38,9 +38,9 @@ public class WallGenerator : MonoBehaviour
     public MiniSoapyFloorGenerator soapy_floor_generator;
     public int gen_limit;
 
-    [SerializeField] private Tile[] wallSandstone = new Tile[4];
-    [SerializeField] private Tile wallTile;
-    [SerializeField] private Tile[] wallStone = new Tile[4];
+    public Tile[] wall_1 = new Tile[4]; // terracota
+    public Tile wall_2; // racholas
+    public Tile[] wall_3 = new Tile[4]; // piedra grande
 
     void Start()
     {
@@ -52,9 +52,9 @@ public class WallGenerator : MonoBehaviour
         next_to_gen_platform = UnityEngine.Random.Range(2, 4);
         //Debug.Log(next_to_gen_platform);
 
-        map_width = grid.CellToWorld(new Vector3Int(limitTilesRight, 0, 0)).x * 2;
+        map_width = grid.CellToWorld(new Vector3Int(limit_tiles_right, 0, 0)).x * 2;
 
-        Generate(0, height_init);
+        generate(0, height_init);
 
         player_next_to_gen = player_next_to_gen_magic;
     }
@@ -64,34 +64,12 @@ public class WallGenerator : MonoBehaviour
     {
         if (GameManager.Instance.player.transform.position.y > player_next_to_gen)
         {
-            Generate(last_change, last_change + player_next_to_gen_magic);
+            generate(last_change, last_change + player_next_to_gen_magic);
 
             player_next_to_gen += player_next_to_gen_magic;
         }
     }
 
-    private void Generate(int initHeight, int endHeight)
-    {
-        int width = limitTilesRight - limitTilesLeft;
-        int height = endHeight - initHeight;
-        BoundsInt bounds =
-            new BoundsInt(new Vector3Int(limitTilesLeft, initHeight, 0), new Vector3Int(width, height, 1));
-        TileBase[] tiles = new TileBase[width * height];
-
-        for (int y = 0; y < height; ++y)
-        {
-            for (int x = 0; x < width; ++x)
-            {
-                tiles[y*width + x] = wallSandstone[0];
-            }
-        }
-        
-        tilemapWall.SetTilesBlock(bounds, tiles);
-        
-        maxHeightGenerated = endHeight;
-    }
-    
-    /*
     private void generate(int init_height, int end_height)
     {
         for (int i = init_height; i < end_height; i++) {
@@ -129,7 +107,7 @@ public class WallGenerator : MonoBehaviour
 
                 if (i != 0)
                 {
-                    for (int j = limitTilesLeft; j < limitTilesRight; j++)
+                    for (int j = limit_tiles_left; j < limit_tiles_right; j++)
                     {
                         int random_num_transition = UnityEngine.Random.Range(0, 2);
 
@@ -137,15 +115,15 @@ public class WallGenerator : MonoBehaviour
                         {
                             if (tile_kind == TileKind.TERRACOTA)
                             {
-                                tilemapWall.SetTile(new Vector3Int(j, i - 1, 0), wallSandstone[3 - (Math.Abs(j % 2) + 2 * (Math.Abs(i - 1) % 2))]);
+                                tilemap_wall.SetTile(new Vector3Int(j, i - 1, 0), wall_1[3 - (Math.Abs(j % 2) + 2 * (Math.Abs(i - 1) % 2))]);
                             }
                             else if (tile_kind == TileKind.RACHOLAS)
                             {
-                                tilemapWall.SetTile(new Vector3Int(j, i - 1, 0), wallTile);
+                                tilemap_wall.SetTile(new Vector3Int(j, i - 1, 0), wall_2);
                             }
                             else
                             {
-                                tilemapWall.SetTile(new Vector3Int(j, i - 1, 0), wallStone[3 - (Math.Abs(j % 2) + 2 * (Math.Abs(i - 1) % 2))]);
+                                tilemap_wall.SetTile(new Vector3Int(j, i - 1, 0), wall_3[3 - (Math.Abs(j % 2) + 2 * (Math.Abs(i - 1) % 2))]);
                             }
                         }
                     }
@@ -183,7 +161,7 @@ public class WallGenerator : MonoBehaviour
 
                 int qtty_of_platforms = UnityEngine.Random.Range(2, 5);
 
-                float left_pos = grid.CellToWorld(new Vector3Int(limitTilesLeft, 0, 0)).x;
+                float left_pos = grid.CellToWorld(new Vector3Int(limit_tiles_left, 0, 0)).x;
 
                 for (int j = 0; j < qtty_of_platforms; j++)
                 {
@@ -208,18 +186,18 @@ public class WallGenerator : MonoBehaviour
                 //Debug.Log(next_to_gen_platform);
             }
 
-            for (int j = limitTilesLeft;  j < limitTilesRight; j++)
+            for (int j = limit_tiles_left;  j < limit_tiles_right; j++)
             {
                 if (tile_kind == TileKind.TERRACOTA)
                 {
-                    tilemapWall.SetTile(new Vector3Int(j, i, 0), wallSandstone[3 - (Math.Abs(j % 2) + 2 * (i % 2))]);
+                    tilemap_wall.SetTile(new Vector3Int(j, i, 0), wall_1[3 - (Math.Abs(j % 2) + 2 * (i % 2))]);
                 }
                 else if (tile_kind == TileKind.RACHOLAS)
                 {
-                    tilemapWall.SetTile(new Vector3Int(j, i, 0), wallTile);
+                    tilemap_wall.SetTile(new Vector3Int(j, i, 0), wall_2);
                 } else
                 {
-                    tilemapWall.SetTile(new Vector3Int(j, i, 0), wallStone[3 - (Math.Abs(j % 2) + 2 * (i % 2))]);
+                    tilemap_wall.SetTile(new Vector3Int(j, i, 0), wall_3[3 - (Math.Abs(j % 2) + 2 * (i % 2))]);
                 }
             }
 
@@ -227,7 +205,6 @@ public class WallGenerator : MonoBehaviour
         }
 
 
-        maxHeightGenerated = end_height;
+        max_height_generated = end_height;
     }
-    */
 }
