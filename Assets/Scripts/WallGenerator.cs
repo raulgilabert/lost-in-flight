@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -12,14 +14,15 @@ public class WallGenerator : MonoBehaviour
     };
 
     // Start is called before the first frame update
-    [SerializeField] private Tilemap tilemapWall;
-    [SerializeField] private Grid grid;
-    [SerializeField] private PlatformsGenerator platformGen;
+    public Tilemap tilemapWall;
+    public Grid grid;
+    public PlatformsGenerator platform_gen;
 
-    [SerializeField] private int heightInit;
-    [SerializeField] private int limitTilesLeft;
-    [SerializeField] private int limitTilesRight;
-    [SerializeField] private int playerNextToGenMagic;
+    private int maxHeightGenerated;
+    public int height_init;
+    public int limitTilesLeft;
+    public int limitTilesRight;
+    public int player_next_to_gen_magic;
 
     private int _lastChange;
     private int _size;
@@ -27,13 +30,13 @@ public class WallGenerator : MonoBehaviour
     private TileKind _lastTileKind;
     private int _timesTileRepeated;
 
-    private int _nextToGenPlatform;
-    private float _mapWidth;
+    private int next_to_gen_platform;
+    private float map_width;
 
-    private float _playerNextToGen;
+    private float player_next_to_gen;
 
-    [SerializeField] private MiniSoapyFloorGenerator soapyFloorGenerator;
-    [SerializeField] private int genLimit;
+    public MiniSoapyFloorGenerator soapy_floor_generator;
+    public int gen_limit;
 
     [SerializeField] private Tile[] wallSandstone = new Tile[4];
     [SerializeField] private Tile wallTile;
@@ -46,24 +49,24 @@ public class WallGenerator : MonoBehaviour
         _tileKind = TileKind.Sandstone;
         _lastTileKind = TileKind.Sandstone;
         _timesTileRepeated = 0;
-        _nextToGenPlatform = UnityEngine.Random.Range(2, 4);
+        next_to_gen_platform = UnityEngine.Random.Range(2, 4);
         //Debug.Log(next_to_gen_platform);
 
-        _mapWidth = grid.CellToWorld(new Vector3Int(limitTilesRight, 0, 0)).x * 2;
+        map_width = grid.CellToWorld(new Vector3Int(limitTilesRight, 0, 0)).x * 2;
 
-        Generate(0, heightInit);
+        Generate(0, height_init);
 
-        _playerNextToGen = playerNextToGenMagic;
+        player_next_to_gen = player_next_to_gen_magic;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Instance.player.transform.position.y > _playerNextToGen)
+        if (GameManager.Instance.player.transform.position.y > player_next_to_gen)
         {
-            Generate(_lastChange, _lastChange + playerNextToGenMagic);
+            Generate(_lastChange, _lastChange + player_next_to_gen_magic);
 
-            _playerNextToGen += playerNextToGenMagic;
+            player_next_to_gen += player_next_to_gen_magic;
         }
     }
     
@@ -90,41 +93,6 @@ public class WallGenerator : MonoBehaviour
             _ => TileKind.Sandstone
         };
     }
-
-    private void GeneratePlatforms(TileKind tileKind, int y)
-    {
-         int qttyOfPlatforms = UnityEngine.Random.Range(2, 5);
-         float leftPos = grid.CellToWorld(new Vector3Int(limitTilesLeft, 0, 0)).x;
-
-         for (int platformNum = 0; platformNum < qttyOfPlatforms; ++platformNum)
-         {
-             float platformSize =
-                 UnityEngine.Random.Range(_mapWidth / (qttyOfPlatforms * 2), _mapWidth / qttyOfPlatforms);
-             float yPos = grid.CellToWorld(new Vector3Int(0, y, 0)).y + UnityEngine.Random.Range(-0.5f, 0.5f);
-             
-             int platformTexture = tileKind switch
-             {
-                 TileKind.Sandstone => 0,
-                 TileKind.Tile => 1,
-                 TileKind.Stone => 2,
-                 _ => 0
-             };
-             
-             platformGen.Generate(new Vector3(leftPos + platformSize / 2, yPos, 0), platformTexture, platformSize);
-             
-             int genSoapyFloorRandomNum = UnityEngine.Random.Range(0, genLimit);
-
-             if (genSoapyFloorRandomNum == 0)
-             {
-                 soapyFloorGenerator.Generate(new Vector3(
-                     UnityEngine.Random.Range((leftPos + 1f), (leftPos + platformSize - 1f)), yPos + 0.16f, 0));
-             }
-             
-             leftPos += platformSize + UnityEngine.Random.Range(0.5f, 4f);
-         }
-         
-         _nextToGenPlatform = y + UnityEngine.Random.Range(2, 4);
-    }
     
     private void Generate(int initHeight, int endHeight)
     {
@@ -148,7 +116,7 @@ public class WallGenerator : MonoBehaviour
                 
                 _timesTileRepeated = (_tileKind == _lastTileKind) ? _timesTileRepeated + 1 : 0;
                 
-                if (y != initHeight || initHeight != 0)
+                if (y != 0)
                 {
                     for (int x = 0; x < width; ++x)
                     {
@@ -162,11 +130,6 @@ public class WallGenerator : MonoBehaviour
                 }
             }
             
-            if (y + initHeight == _nextToGenPlatform)
-            {
-                GeneratePlatforms(_tileKind, y);
-            }
-         
             for (int x = 0; x < width; ++x)
             {
                 tiles[y * width + x] = SetTile(_tileKind, x, y);
@@ -175,5 +138,147 @@ public class WallGenerator : MonoBehaviour
         }
         
         tilemapWall.SetTilesBlock(bounds, tiles);
+        
+        maxHeightGenerated = endHeight;
     }
+    
+    /*
+    private void generate(int init_height, int end_height)
+    {
+        for (int i = init_height; i < end_height; i++) {
+            if ((i - last_change) % size == 0)
+            {
+                size = UnityEngine.Random.Range(5, 8);
+                last_change = i;
+
+                do
+                {
+                    int random_num = UnityEngine.Random.Range(0, 3);
+
+                    if (random_num == 0)
+                    {
+                        tile_kind = TileKind.TERRACOTA;
+                    }
+                    else if (random_num == 1)
+                    {
+                        tile_kind = TileKind.RACHOLAS;
+                    }
+                    else
+                    {
+                        tile_kind = TileKind.PIEDRA;
+                    }
+                } while (tile_kind == last_tile_kind && times_tile_repeated == 2);
+
+                if (tile_kind == last_tile_kind)
+                {
+                    ++times_tile_repeated;
+                } else
+                {
+                    times_tile_repeated = 0;
+                }
+                // generaci�n de cambio de textura
+
+                if (i != 0)
+                {
+                    for (int j = limitTilesLeft; j < limitTilesRight; j++)
+                    {
+                        int random_num_transition = UnityEngine.Random.Range(0, 2);
+
+                        if (random_num_transition == 0)
+                        {
+                            if (tile_kind == TileKind.TERRACOTA)
+                            {
+                                tilemapWall.SetTile(new Vector3Int(j, i - 1, 0), wallSandstone[3 - (Math.Abs(j % 2) + 2 * (Math.Abs(i - 1) % 2))]);
+                            }
+                            else if (tile_kind == TileKind.RACHOLAS)
+                            {
+                                tilemapWall.SetTile(new Vector3Int(j, i - 1, 0), wallTile);
+                            }
+                            else
+                            {
+                                tilemapWall.SetTile(new Vector3Int(j, i - 1, 0), wallStone[3 - (Math.Abs(j % 2) + 2 * (Math.Abs(i - 1) % 2))]);
+                            }
+                        }
+                    }
+                }
+            }
+            // generaci�n de plataformas (aprox cada 2-3 iteraciones)
+            if (i == next_to_gen_platform)
+            {
+                int texture;
+                switch (tile_kind)
+                {
+                    case TileKind.TERRACOTA:
+                        {
+                            //Platformer.generate();
+                            texture = 0;
+
+                            break;
+                        }
+                    case TileKind.RACHOLAS:
+                        {
+                            texture = 1;
+                            break;
+                        }
+                    case TileKind.PIEDRA:
+                        {
+                            texture = 2;
+                            break;
+                        }
+                    default:
+                        {
+                            texture = 0;
+                            break;
+                        }
+                }
+
+                int qtty_of_platforms = UnityEngine.Random.Range(2, 5);
+
+                float left_pos = grid.CellToWorld(new Vector3Int(limitTilesLeft, 0, 0)).x;
+
+                for (int j = 0; j < qtty_of_platforms; j++)
+                {
+                    float size = UnityEngine.Random.Range(map_width / (qtty_of_platforms*2), (map_width) / qtty_of_platforms);
+                    float y_pos = grid.CellToWorld(new Vector3Int(0, i, 0)).y + UnityEngine.Random.Range(-0.5f, 0.5f);
+
+                    platform_gen.generate(new Vector3(left_pos + size / 2, y_pos, 0), texture, size);
+
+                    int gen_soapy_floor_random_num = UnityEngine.Random.Range(0, gen_limit);
+
+                    if (gen_soapy_floor_random_num == 0)
+                    {
+                        soapy_floor_generator.generate(new Vector3(UnityEngine.Random.Range((left_pos + 1f), (left_pos + size - 1f)), y_pos + 0.16f, 0));
+                    }
+
+                    left_pos += size + UnityEngine.Random.Range(0.5f, 4f);
+                }
+
+                //platform_gen.generate(grid.CellToWorld(new Vector3Int(-3, i, 0)), texture, 20);
+                next_to_gen_platform = i + UnityEngine.Random.Range(2, 4);
+
+                //Debug.Log(next_to_gen_platform);
+            }
+
+            for (int j = limitTilesLeft;  j < limitTilesRight; j++)
+            {
+                if (tile_kind == TileKind.TERRACOTA)
+                {
+                    tilemapWall.SetTile(new Vector3Int(j, i, 0), wallSandstone[3 - (Math.Abs(j % 2) + 2 * (i % 2))]);
+                }
+                else if (tile_kind == TileKind.RACHOLAS)
+                {
+                    tilemapWall.SetTile(new Vector3Int(j, i, 0), wallTile);
+                } else
+                {
+                    tilemapWall.SetTile(new Vector3Int(j, i, 0), wallStone[3 - (Math.Abs(j % 2) + 2 * (i % 2))]);
+                }
+            }
+
+            last_tile_kind = tile_kind;
+        }
+
+
+        maxHeightGenerated = end_height;
+    }
+    */
 }
