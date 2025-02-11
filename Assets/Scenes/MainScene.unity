@@ -797,7 +797,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.125
+  orthographic size: 4.21875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1293,7 +1293,7 @@ MonoBehaviour:
   - {fileID: -2118845634, guid: 409fefc59653a41459e11ae977c3caba, type: 3}
   - {fileID: 1761160159, guid: 409fefc59653a41459e11ae977c3caba, type: 3}
   - {fileID: -1252806377, guid: 409fefc59653a41459e11ae977c3caba, type: 3}
-  platformBase: {fileID: 80344160354361315, guid: f4accdb16ec145a40bac5c225cfc980d, type: 3}
+  platform_base: {fileID: 80344160354361315, guid: f4accdb16ec145a40bac5c225cfc980d, type: 3}
 --- !u!4 &701722104
 Transform:
   m_ObjectHideFlags: 0
@@ -1528,13 +1528,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemapWall: {fileID: 563978131}
   grid: {fileID: 760811068}
-  platformGen: {fileID: 701722103}
-  heightInit: 50
+  platform_gen: {fileID: 701722103}
+  height_init: 50
   limitTilesLeft: -15
   limitTilesRight: 15
-  playerNextToGenMagic: 25
-  soapyFloorGenerator: {fileID: 1102216100}
-  genLimit: 3
+  player_next_to_gen_magic: 25
+  soapy_floor_generator: {fileID: 1102216100}
+  gen_limit: 5
   wallSandstone:
   - {fileID: 11400000, guid: 92741997e131b7242ab6cb95610d6dfe, type: 2}
   - {fileID: 11400000, guid: 1b3f85af2e1449242b2ed46c3ab82811, type: 2}
