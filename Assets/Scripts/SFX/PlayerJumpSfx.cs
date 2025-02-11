@@ -4,9 +4,9 @@ namespace SFX
 {
     public class PlayerJumpSfx : SfxTrigger
     {
-        private new void Awake()
+        private new void Start()
         {
-            base.Awake();
+            base.Start();
             
             GetComponentInParent<PlayerMovement>().onJump.AddListener(Play);
         }

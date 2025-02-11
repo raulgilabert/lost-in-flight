@@ -4,9 +4,9 @@ namespace SFX
 {
     public class LandSfx : SfxTrigger
     {
-        private new void Awake()
+        private new void Start()
         {
-            base.Awake();
+            base.Start();
             
             GetComponentInParent<GroundDetector>().onGroundedStateChange.AddListener(OnGroundedStateChange);
         }
