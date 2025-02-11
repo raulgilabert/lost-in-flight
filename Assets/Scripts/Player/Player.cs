@@ -1,4 +1,5 @@
 using Health;
+using Physics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,6 +11,7 @@ namespace Player
 
         private PlayerMovement _playerMovement;
         private Health.Health _health;
+        private Rigidbody2D _rigidbody;
 
         [SerializeField] private SpriteRenderer sprite;
         [SerializeField] private Color soapyColor;
@@ -23,6 +25,7 @@ namespace Player
         {
             _playerMovement = GetComponent<PlayerMovement>();
             _health = GetComponent<Health.Health>();
+            _rigidbody = GetComponent<Rigidbody2D>();
             
             GameManager.Instance.player = this;
         }
@@ -32,6 +35,14 @@ namespace Player
         {
             _health.onHealthChanged.AddListener(OnHealthChanged);
             _health.onDeath.AddListener(OnDeath);
+        }
+
+        private void FixedUpdate()
+        {
+            if (Mathf.Abs(_rigidbody.linearVelocityX) > 0.1f)
+            {
+                sprite.flipX = _rigidbody.linearVelocityX < 0;
+            }
         }
 
         private void OnHealthChanged(float health)
