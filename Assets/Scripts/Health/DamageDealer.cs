@@ -19,8 +19,8 @@ namespace Health
         
             if (other.TryGetComponent(out DamageReceiver damageReceiver))
             {
-                if (damageReceiver.ReceiveDamage(damage))
-                    onDamageDealt.Invoke(damage);
+                damageReceiver.ReceiveDamage(damage);
+                onDamageDealt.Invoke(damage);
             }
         }
 
@@ -32,9 +32,9 @@ namespace Health
             {
                 if (_damageTimer > 0) return;
                 _damageTimer = cadence;
-
-                if (damageReceiver.ReceiveDamage(damage))
-                    onDamageDealt.Invoke(damage);
+            
+                damageReceiver.ReceiveDamage(damage);
+                onDamageDealt.Invoke(damage);
             }
         }
 
