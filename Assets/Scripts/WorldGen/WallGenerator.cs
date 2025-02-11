@@ -31,7 +31,6 @@ namespace WorldGen
         private int _timesTileRepeated;
 
         private int _nextToGenPlatform;
-        private float _mapWidth;
 
         private int _playerNextToGen;
 
@@ -51,8 +50,6 @@ namespace WorldGen
             _timesTileRepeated = 0;
             _nextToGenPlatform = UnityEngine.Random.Range(2, 3);
             _playerNextToGen = (int)(GameManager.Instance.player.transform.position.y - 3);
-
-            _mapWidth = grid.CellToWorld(new Vector3Int(limitTilesRight, 0, 0)).x * 2;
         }
 
         // Update is called once per frame
@@ -90,43 +87,6 @@ namespace WorldGen
             };
         }
 
-        /*
-        private void GeneratePlatforms(TileKind tileKind, int y)
-        {
-            int qttyOfPlatforms = UnityEngine.Random.Range(2, 5);
-            float leftPos = grid.CellToWorld(new Vector3Int(limitTilesLeft, 0, 0)).x;
-
-            for (int platformNum = 0; platformNum < qttyOfPlatforms; ++platformNum)
-            {
-                float platformSize =
-                    UnityEngine.Random.Range(_mapWidth / (qttyOfPlatforms * 2), _mapWidth / qttyOfPlatforms);
-                float yPos = grid.CellToWorld(new Vector3Int(0, y, 0)).y + UnityEngine.Random.Range(-0.5f, 0.5f);
-             
-                int platformTexture = tileKind switch
-                {
-                    TileKind.Sandstone => 0,
-                    TileKind.Tile => 1,
-                    TileKind.Stone => 2,
-                    _ => 0
-                };
-             
-                platformGen.Generate(new Vector3(leftPos + platformSize / 2, yPos, 0), platformTexture, platformSize);
-             
-                int genSoapyFloorRandomNum = UnityEngine.Random.Range(0, genLimit);
-
-                if (genSoapyFloorRandomNum == 0)
-                {
-                    soapyFloorGenerator.Generate(new Vector3(
-                        UnityEngine.Random.Range((leftPos + 1f), (leftPos + platformSize - 1f)), yPos + 0.16f, 0));
-                }
-             
-                leftPos += platformSize + UnityEngine.Random.Range(1f, 4f);
-            }
-         
-            _nextToGenPlatform = y + UnityEngine.Random.Range(2, 4);
-        }
-        */
-    
         private void Generate(int initHeight, int endHeight)
         {
             int width = limitTilesRight - limitTilesLeft;

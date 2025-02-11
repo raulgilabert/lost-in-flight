@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.Serialization;
 
 namespace WorldGen
 {
@@ -42,11 +39,20 @@ namespace WorldGen
                 Matrix4x4 matrix = Matrix4x4.TRS(new Vector3(Random.Range(-0.32f, 0.32f), Random.Range(-0.48f, 0.48f)),
                     Quaternion.Euler(0, 0, 0), Vector3.one);
 
-                for (int j = limitTilesLeft; j < limitTilesLeft + size; j++)
+                TileChangeData[] platformTiles = new TileChangeData[size];
+                
+                for (int j = 0; j < size; j++)
                 {
-                    _tilemap.SetTile(new Vector3Int(j, y), tile);
-                    _tilemap.SetTransformMatrix(new Vector3Int(j, y), matrix);
+                    platformTiles[j] = new TileChangeData
+                    {
+                        color = new Color(1f,1f, 1f),
+                        position = new Vector3Int(j + limitTilesLeft, y, 0),
+                        tile = tile,
+                        transform = matrix
+                    };
                 }
+                
+                _tilemap.SetTiles(platformTiles, true);
 
                 limitTilesLeft += size + Random.Range(2, 4);
 
