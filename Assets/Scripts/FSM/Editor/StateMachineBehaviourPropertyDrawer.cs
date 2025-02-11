@@ -29,7 +29,9 @@ namespace FSM.Editor
             {
                 var behaviour = (StateMachineBehaviour)property.managedReferenceValue;
                 var newLabel = behaviour.GetLabel();
-                if (newLabel != null) label = new GUIContent(newLabel);
+                label = String.IsNullOrEmpty(newLabel)
+                    ? new GUIContent(ObjectNames.NicifyVariableName(behaviour.GetType().Name))
+                    : new GUIContent(newLabel);
             }
             
             EditorGUI.BeginProperty(position, GUIContent.none, property);
@@ -64,7 +66,7 @@ namespace FSM.Editor
                 return EditorGUI.GetPropertyHeight(property, true) + EditorGUIUtility.singleLineHeight;
             }
 
-            return EditorGUIUtility.singleLineHeight;
+            return 2 * EditorGUIUtility.singleLineHeight;
         }
     }
 }
