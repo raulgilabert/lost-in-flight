@@ -5976,7 +5976,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggleActions:
-  - component: {fileID: 3139212680731280195}
+  - component: {fileID: 11500000, guid: a36a36e8b1ac2054a8b710f02ef8f1eb, type: 3}
     mode: 1
-  - component: {fileID: 6223561515063028772}
+    target: 0
+  - component: {fileID: 11500000, guid: 9458cb1abd7a48aca84034397690cdaa, type: 3}
     mode: 1
+    target: 0
