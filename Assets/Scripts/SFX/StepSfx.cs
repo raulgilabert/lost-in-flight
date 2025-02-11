@@ -1,4 +1,3 @@
-using System.Collections;
 using Physics;
 using UnityEngine;
 
@@ -12,56 +11,48 @@ namespace SFX
         [SerializeField] private float horizontalVelocityThreshold;
         [SerializeField] private float stepCadence;
         [SerializeField] private float maxStepCadenceOffset;
+
+        private float _stepTimer;
         
-        private bool _coroutineRunning;
-        
-        private new void Awake()
+        private new void Start()
         {
-            base.Awake();
+            base.Start();
             
             _groundDetector = GetComponentInParent<GroundDetector>();
             _rigidbody = GetComponentInParent<Rigidbody2D>();
-            
-            _groundDetector.onGroundedStateChange.AddListener(OnGroundedStateChange);
         }
 
-        private void OnEnable()
+        private void Update()
         {
-            if (_groundDetector.IsGrounded)
+            if (!_groundDetector.IsGrounded)
             {
-                StartCoroutine(TriggerLoop());
-                _coroutineRunning = true;
-            }
-        }
-
-        private void OnDisable()
-        {
-            StopAllCoroutines();
-            _coroutineRunning = false;
-        }
-
-        private void OnGroundedStateChange(bool grounded)
-        {
-            if (grounded)
-            {
-                if (!_coroutineRunning) StartCoroutine(TriggerLoop()); 
-            }
-            else
-            {
-                if (_coroutineRunning) StopAllCoroutines();
+                _stepTimer = 0;
+                return;
             }
             
-            _coroutineRunning = grounded;
+            TickStepTimer();
+            RestartTimer();
         }
 
-        private IEnumerator TriggerLoop()
+        private void TickStepTimer()
         {
-            while (true)
+            // Timer must be active
+            if (_stepTimer <= 0) return;
+            
+            _stepTimer -= Time.deltaTime;
+            
+            // Perform end action
+            if (_stepTimer <= 0) Play();
+        }
+
+        private void RestartTimer()
+        {
+            // Timer must be inactive
+            if (_stepTimer > 0) return;
+
+            if (Mathf.Abs(_rigidbody.linearVelocityX) > horizontalVelocityThreshold)
             {
-                yield return new WaitForSeconds(Random.Range(stepCadence - maxStepCadenceOffset, stepCadence + maxStepCadenceOffset));
-                yield return new WaitUntil( () => Mathf.Abs(_rigidbody.linearVelocityX) > horizontalVelocityThreshold );
-                
-                Play();
+                _stepTimer =  + Random.Range(stepCadence - maxStepCadenceOffset, stepCadence + maxStepCadenceOffset);
             }
         }
     }
