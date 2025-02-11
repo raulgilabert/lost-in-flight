@@ -1,6 +1,6 @@
-using FSM;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace GlobalState
 {
@@ -8,14 +8,11 @@ namespace GlobalState
     {
         public static GameManager Instance { get; private set; }
 
-        private const string Paused = "Paused";
-
         public Player.Player player;
+        public bool IsPaused { get; private set; }
         public UnityEvent<bool> onTogglePause;
-        
-        public bool IsPaused => _stateMachine.CurrentStateName == "Paused";
 
-        private StateMachine _stateMachine;
+        private InputAction _pauseAction;
 
         private void Awake()
         {
@@ -24,25 +21,25 @@ namespace GlobalState
                 Destroy(this);
                 return;
             }
+
             Instance = this;
+            DontDestroyOnLoad(this);
         
-            _stateMachine = GetComponent<StateMachine>();
+            _pauseAction = InputSystem.actions.FindAction("Pause");
         }
 
-        private void Start()
+        private void Update()
         {
-            _stateMachine.onStateEnter.AddListener(OnStateEnter);
-            _stateMachine.onStateExit.AddListener(OnStateExit);
+            if (_pauseAction.WasPerformedThisFrame()) TogglePause();
         }
 
-        private void OnStateEnter(string stateName)
+        public void TogglePause()
         {
-            if (stateName == Paused) onTogglePause.Invoke(true);
-        }
-
-        private void OnStateExit(string stateName)
-        {
-            if (stateName == Paused) onTogglePause.Invoke(false);
+            if (player.GetComponent<Health.Health>().IsDead) return;
+        
+            IsPaused = !IsPaused;
+            Time.timeScale = IsPaused ? 0 : 1;
+            onTogglePause.Invoke(IsPaused);
         }
     }
 }
