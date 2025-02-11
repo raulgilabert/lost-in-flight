@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 
 namespace Health
@@ -21,8 +22,9 @@ namespace Health
         [Serializable]
         struct ToggleAction
         {
-            public MonoBehaviour component;
+            public MonoScript component;
             public Action mode;
+            public Target target;
         }
         
         [SerializeField] private ToggleAction[] toggleActions;
@@ -36,9 +38,18 @@ namespace Health
         {
             foreach (var action in toggleActions)
             {
-                if (action.component == null) continue;
+                Type componentType = action.component.GetClass();
+                Component component = action.target switch
+                {
+                    Target.Self => GetComponent(componentType),
+                    Target.Parent => GetComponentInParent(componentType),
+                    Target.Children => GetComponentInChildren(componentType),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
                 
-                action.component.enabled = action.mode == Action.Activate;
+                if (component == null) continue;
+                
+                ((MonoBehaviour) component).enabled = action.mode == Action.Activate;
             }
         }
     }
