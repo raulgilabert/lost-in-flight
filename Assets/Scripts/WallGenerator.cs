@@ -30,7 +30,7 @@ public class WallGenerator : MonoBehaviour
     private int _nextToGenPlatform;
     private float _mapWidth;
 
-    private int _playerNextToGen;
+    private float _playerNextToGen;
 
     [SerializeField] private MiniSoapyFloorGenerator soapyFloorGenerator;
     [SerializeField] private int genLimit;
@@ -46,21 +46,23 @@ public class WallGenerator : MonoBehaviour
         _tileKind = TileKind.Sandstone;
         _lastTileKind = TileKind.Sandstone;
         _timesTileRepeated = 0;
-        _nextToGenPlatform = UnityEngine.Random.Range(2, 3);
-        _playerNextToGen = heightInit;
+        _nextToGenPlatform = UnityEngine.Random.Range(2, 4);
+        //Debug.Log(next_to_gen_platform);
 
         _mapWidth = grid.CellToWorld(new Vector3Int(limitTilesRight, 0, 0)).x * 2;
 
         Generate(0, heightInit);
+
+        _playerNextToGen = playerNextToGenMagic;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Instance.player.transform.position.y > _playerNextToGen - playerNextToGenMagic)
+        if (GameManager.Instance.player.transform.position.y > _playerNextToGen)
         {
-            Generate(_playerNextToGen, _playerNextToGen + playerNextToGenMagic);
-            
+            Generate(_lastChange, _lastChange + playerNextToGenMagic);
+
             _playerNextToGen += playerNextToGenMagic;
         }
     }
@@ -118,7 +120,7 @@ public class WallGenerator : MonoBehaviour
                      UnityEngine.Random.Range((leftPos + 1f), (leftPos + platformSize - 1f)), yPos + 0.16f, 0));
              }
              
-             leftPos += platformSize + UnityEngine.Random.Range(1f, 4f);
+             leftPos += platformSize + UnityEngine.Random.Range(0.5f, 4f);
          }
          
          _nextToGenPlatform = y + UnityEngine.Random.Range(2, 4);
@@ -137,7 +139,7 @@ public class WallGenerator : MonoBehaviour
             if ((y - _lastChange) % _size == 0)
             {
                 _size = UnityEngine.Random.Range(5, 8);
-                _lastChange = y + initHeight;
+                _lastChange = y;
                 
                 do
                 {
@@ -162,7 +164,7 @@ public class WallGenerator : MonoBehaviour
             
             if (y + initHeight == _nextToGenPlatform)
             {
-                GeneratePlatforms(_tileKind, y + initHeight);
+                GeneratePlatforms(_tileKind, y);
             }
          
             for (int x = 0; x < width; ++x)
