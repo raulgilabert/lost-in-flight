@@ -47,9 +47,11 @@ public class WallGenerator : MonoBehaviour
         _lastTileKind = TileKind.Sandstone;
         _timesTileRepeated = 0;
         _nextToGenPlatform = UnityEngine.Random.Range(2, 3);
-        _playerNextToGen = (int)(GameManager.Instance.player.transform.position.y - 3);
+        _playerNextToGen = heightInit;
 
         _mapWidth = grid.CellToWorld(new Vector3Int(limitTilesRight, 0, 0)).x * 2;
+
+        Generate(0, heightInit);
     }
 
     // Update is called once per frame
