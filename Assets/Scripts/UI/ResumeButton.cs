@@ -1,4 +1,3 @@
-using GlobalState;
 using UnityEngine;
 
 namespace UI
