@@ -2,11 +2,12 @@ using System;
 
 namespace FSM
 {
+    //[Serializable]
     public interface StateMachineBehaviour
     {
         public void Start(StateMachine stateMachine)
         {
-            // Do nothing by default
+            
         }
         
         public void OnStateEnter(StateMachine stateMachine)
