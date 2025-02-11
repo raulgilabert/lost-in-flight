@@ -1293,7 +1293,7 @@ MonoBehaviour:
   - {fileID: -2118845634, guid: 409fefc59653a41459e11ae977c3caba, type: 3}
   - {fileID: 1761160159, guid: 409fefc59653a41459e11ae977c3caba, type: 3}
   - {fileID: -1252806377, guid: 409fefc59653a41459e11ae977c3caba, type: 3}
-  platformBase: {fileID: 0}
+  platformBase: {fileID: 80344160354361315, guid: f4accdb16ec145a40bac5c225cfc980d, type: 3}
 --- !u!4 &701722104
 Transform:
   m_ObjectHideFlags: 0
@@ -1517,13 +1517,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemapWall: {fileID: 563978131}
   grid: {fileID: 760811068}
-  platformGen: {fileID: 0}
-  heightInit: 0
+  platformGen: {fileID: 701722103}
+  heightInit: 25
   limitTilesLeft: -15
   limitTilesRight: 15
-  playerNextToGenMagic: 0
-  soapyFloorGenerator: {fileID: 0}
-  genLimit: 0
+  playerNextToGenMagic: 12
+  soapyFloorGenerator: {fileID: 1102216100}
+  genLimit: 3
   wallSandstone:
   - {fileID: 11400000, guid: 92741997e131b7242ab6cb95610d6dfe, type: 2}
   - {fileID: 11400000, guid: 1b3f85af2e1449242b2ed46c3ab82811, type: 2}
@@ -3584,7 +3584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d409fda00d244d398e58b05eb4aa72d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  graph: {fileID: 0}
+  graph: {fileID: 11400000, guid: fef01365cf087209c9271118491bfcda, type: 2}
   onStateEnter:
     m_PersistentCalls:
       m_Calls: []
