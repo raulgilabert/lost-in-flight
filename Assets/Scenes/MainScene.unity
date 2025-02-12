@@ -1697,6 +1697,7 @@ GameObject:
   - component: {fileID: 760811068}
   - component: {fileID: 760811071}
   - component: {fileID: 760811070}
+  - component: {fileID: 760811072}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -1746,15 +1747,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a606601c7d42091488f5ec4c8f3fbb81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemapWall: {fileID: 563978131}
-  grid: {fileID: 760811068}
   platformGen: {fileID: 760811071}
-  heightInit: 25
   limitTilesLeft: -15
   limitTilesRight: 15
   playerNextToGenMagic: 12
-  soapyFloorGenerator: {fileID: 1102216100}
-  genLimit: 3
   wallSandstone:
   - {fileID: 11400000, guid: 92741997e131b7242ab6cb95610d6dfe, type: 2}
   - {fileID: 11400000, guid: 1b3f85af2e1449242b2ed46c3ab82811, type: 2}
@@ -1782,7 +1778,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3c6bf5af7ccd6b4ad984b598de130bba, type: 2}
   - {fileID: 11400000, guid: 9f33d49b1656f4abc8e70d30f860f210, type: 2}
   - {fileID: 11400000, guid: bdc61cccef17c726594f742a2a546e44, type: 2}
-  miniSoapyFloorGenerator: {fileID: 1102216100}
+  miniSoapyFloorGenerator: {fileID: 760811072}
+  miniSoapyFloorChance: 3
+--- !u!114 &760811072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760811067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d40359c91985aecb58388e5c47be5b59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soapyFloorTile: {fileID: 11400000, guid: e83d7ded2d36e7f4cb438d1a334ba809, type: 2}
 --- !u!1 &838821158
 GameObject:
   m_ObjectHideFlags: 0
@@ -2599,52 +2609,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1029186622}
   m_CullTransparentMesh: 1
---- !u!1 &1102216099
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1102216101}
-  - component: {fileID: 1102216100}
-  m_Layer: 0
-  m_Name: MiniSoapyFloor Generator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1102216100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1102216099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d40359c91985aecb58388e5c47be5b59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soapyFloorTile: {fileID: 11400000, guid: e83d7ded2d36e7f4cb438d1a334ba809, type: 2}
-  tilemap: {fileID: 914035797}
---- !u!4 &1102216101
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1102216099}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.32635286, y: -1.7140619, z: -4.4743814}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1227100790
 GameObject:
   m_ObjectHideFlags: 0
@@ -4486,7 +4450,6 @@ SceneRoots:
   - {fileID: 126792752}
   - {fileID: 4940756938902736442}
   - {fileID: 760811069}
-  - {fileID: 1102216101}
   - {fileID: 235945902}
   - {fileID: 193872409}
   - {fileID: 241544850}
