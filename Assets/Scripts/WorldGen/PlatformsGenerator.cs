@@ -28,8 +28,6 @@ namespace WorldGen
             {
                 int size = Random.Range(4, mapWidth / (numPlatforms - 1));
 
-                // TODO: Add generation of left and right variable width platforms
-
                 TileBase tile = tileKind switch
                 {
                     TileKind.Sandstone => textures[0],
