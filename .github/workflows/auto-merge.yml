@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     # Only activated if pull request is from authors
-    if: github.event.pull_request.user.login == 'raulgilabert' || github.event.pull_request.user.login == 'naritanara'
+    if: github.event.pull_request.user.login == 'raulgilabert' || github.event.pull_request.user.login == 'rdvdev2'
     steps:
     - uses: alexwilson/enable-github-automerge-action@main
       with:
