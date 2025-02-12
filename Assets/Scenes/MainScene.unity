@@ -810,8 +810,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 647218263
-  m_SortingLayer: 3
+  m_SortingLayerID: -1702633305
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -2323,9 +2323,9 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 647218263
-  m_SortingLayer: 3
-  m_SortingOrder: 1
+  m_SortingLayerID: -316063859
+  m_SortingLayer: 2
+  m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -4455,6 +4455,14 @@ PrefabInstance:
     - target: {fileID: 7908904043598501684, guid: 0bcba7751fc950261a9a57631172caa1, type: 3}
       propertyPath: m_Name
       value: MiniSoapy Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 8273923738076639866, guid: 0bcba7751fc950261a9a57631172caa1, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8273923738076639866, guid: 0bcba7751fc950261a9a57631172caa1, type: 3}
+      propertyPath: m_Size.y
+      value: 0.1875
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
