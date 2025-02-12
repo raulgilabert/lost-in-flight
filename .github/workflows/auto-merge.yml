@@ -1,0 +1,18 @@
+name: Auto-Merge
+on:
+  pull_request_target:
+    branches:
+      - develop
+    types: [created]
+
+jobs:
+  enable-auto-merge:
+    runs-on: ubuntu-latest
+
+    # Only activated if pull request is from authors
+    if: github.event.pull_request.user.login == 'raulgilabert' || github.event.pull_request.user.login == 'naritanara'
+    steps:
+    - uses: alexwilson/enable-github-automerge-action@main
+      with:
+        github-token: "${{ secrets.GITHUB_TOKEN }}"
+        merge-method: "REBASE"
