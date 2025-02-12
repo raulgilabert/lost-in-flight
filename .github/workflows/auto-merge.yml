@@ -3,7 +3,7 @@ on:
   pull_request_target:
     branches:
       - develop
-    types: [created]
+    types: [opened, reopened]
 
 jobs:
   enable-auto-merge:
