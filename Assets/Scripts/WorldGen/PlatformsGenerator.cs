@@ -8,6 +8,7 @@ namespace WorldGen
     {
         [SerializeField] private TileBase[] textures = new TileBase[3];
         [SerializeField] private MiniSoapyFloorGenerator miniSoapyFloorGenerator;
+        [SerializeField] private int miniSoapyFloorChance;
 
         private Tilemap _tilemapPlatforms;
     
@@ -55,7 +56,7 @@ namespace WorldGen
                 
                 _tilemapPlatforms.SetTiles(platformTiles, true);
                 
-                if (Random.Range(0, 10) < 2)
+                if (Random.Range(0, miniSoapyFloorChance) == 0)
                 {
                     Matrix4x4 soapyMatrix = Matrix4x4.TRS(matrixPosition + new Vector3(0, 5f/32f, 0), 
                         Quaternion.Euler(0, 0, 0), Vector3.one);

@@ -1,5 +1,4 @@
 using System;
-using Enemies.MiniSoapyFloor;
 using GlobalState;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -15,11 +14,9 @@ namespace WorldGen
     public class WallGenerator : MonoBehaviour
     {
         // Start is called before the first frame update
-        [SerializeField] private Tilemap tilemapWall;
-        [SerializeField] private Grid grid;
+        private Tilemap _tilemapWall;
         [SerializeField] private PlatformsGenerator platformGen;
 
-        [SerializeField] private int heightInit;
         [SerializeField] private int limitTilesLeft;
         [SerializeField] private int limitTilesRight;
         [SerializeField] private int playerNextToGenMagic;
@@ -34,9 +31,6 @@ namespace WorldGen
 
         private int _playerNextToGen;
 
-        [SerializeField] private MiniSoapyFloorGenerator soapyFloorGenerator;
-        [SerializeField] private int genLimit;
-
         [SerializeField] private Tile[] wallSandstone = new Tile[4];
         [SerializeField] private Tile wallTile;
         [SerializeField] private Tile[] wallStone = new Tile[4];
@@ -50,6 +44,7 @@ namespace WorldGen
             _timesTileRepeated = 0;
             _nextToGenPlatform = UnityEngine.Random.Range(2, 3);
             _playerNextToGen = (int)(GameManager.Instance.player.transform.position.y - 3);
+            _tilemapWall = GameObject.Find("Wall").GetComponentInChildren<Tilemap>();
         }
 
         // Update is called once per frame
@@ -137,7 +132,7 @@ namespace WorldGen
                 _lastTileKind = _tileKind;
             }
         
-            tilemapWall.SetTilesBlock(bounds, tiles);
+            _tilemapWall.SetTilesBlock(bounds, tiles);
         }
     }
 }
