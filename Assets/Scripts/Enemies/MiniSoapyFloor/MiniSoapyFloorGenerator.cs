@@ -1,26 +1,17 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Enemies.MiniSoapyFloor
 {
     public class MiniSoapyFloorGenerator : MonoBehaviour
     {
-        public GameObject soapy_go;
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
+        [SerializeField] private AnimatedTile soapyFloorTile;
+        [SerializeField] private Tilemap tilemap;
 
-        // Update is called once per frame
-        void Update()
+        public void Generate(Vector3Int position, Matrix4x4 transformMatrix)
         {
-        }
-
-        public void Generate(Vector3 position)
-        {
-            GameObject s = Instantiate(soapy_go, transform.position, Quaternion.identity);
-
-            s.transform.position = position;
+            tilemap.SetTile(position, soapyFloorTile);
+            tilemap.SetTransformMatrix(position, transformMatrix);
         }
     }
 }

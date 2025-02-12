@@ -127,11 +127,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1
+        y: 18
         width: 32
         height: 6
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -149,19 +149,19 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 1
+        y: 18
         width: 32
         height: 6
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6cf27ae44cbeb15999fb7e77e9d38c6d
-      internalID: -905502463
+      spriteID: 655caa6e7b8b5f83da4265524c595f01
+      internalID: -1759593892
       vertices: []
       indices: 
       edges: []
@@ -171,19 +171,19 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 1
+        y: 18
         width: 32
         height: 6
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e91e661adbb796beeb80a31aa05f9863
-      internalID: -2007167033
+      spriteID: 9f265c0a65640653b997181aa93866d1
+      internalID: -2014939450
       vertices: []
       indices: 
       edges: []
@@ -203,8 +203,8 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       minisoapy_floor_0: 289298492
-      minisoapy_floor_1: -905502463
-      minisoapy_floor_2: -2007167033
+      minisoapy_floor_1: -1759593892
+      minisoapy_floor_2: -2014939450
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
