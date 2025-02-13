@@ -125,7 +125,7 @@ namespace WorldGen
             
                 if (y + initHeight == _nextToGenPlatform)
                 {
-                    platformGen.Generate(_tileKind, y + initHeight, limitTilesLeft, limitTilesRight);
+                    platformGen.QueueGenerate(_tileKind, y + initHeight, limitTilesLeft, limitTilesRight);
                     
                     _nextToGenPlatform += UnityEngine.Random.Range(2, 4);
                 }
@@ -138,6 +138,7 @@ namespace WorldGen
             }
         
             tilemapWall.SetTilesBlock(bounds, tiles);
+            platformGen.FlushQueues();
         }
     }
 }

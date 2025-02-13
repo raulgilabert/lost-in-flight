@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -8,10 +10,28 @@ namespace Enemies.MiniSoapyFloor
         [SerializeField] private AnimatedTile soapyFloorTile;
         [SerializeField] private Tilemap tilemap;
 
-        public void Generate(Vector3Int position, Matrix4x4 transformMatrix)
+        private List<TileChangeData> _updateQueue;
+
+        private void Start()
         {
-            tilemap.SetTile(position, soapyFloorTile);
-            tilemap.SetTransformMatrix(position, transformMatrix);
+            _updateQueue = new List<TileChangeData>();
+        }
+
+        public void QueueGenerate(Vector3Int position, Matrix4x4 transformMatrix)
+        {
+            _updateQueue.Add(new TileChangeData
+            {
+                color = Color.white,
+                position = position,
+                tile = soapyFloorTile,
+                transform = transformMatrix,
+            });
+        }
+
+        public void FlushQueues()
+        {
+            tilemap.SetTiles(_updateQueue.ToArray(), true);
+            _updateQueue.Clear();
         }
     }
 }
