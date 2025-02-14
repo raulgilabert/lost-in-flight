@@ -1,0 +1,18 @@
+{
+    "name": "FSMEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2c2eedad615a190a7ae1bb180b5b8308"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
