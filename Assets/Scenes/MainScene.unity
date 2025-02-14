@@ -515,7 +515,7 @@ Canvas:
   m_GameObject: {fileID: 241544846}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -523,7 +523,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 445680115
@@ -1779,7 +1779,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9f33d49b1656f4abc8e70d30f860f210, type: 2}
   - {fileID: 11400000, guid: bdc61cccef17c726594f742a2a546e44, type: 2}
   miniSoapyFloorGenerator: {fileID: 760811072}
-  miniSoapyFloorChance: 3
+  miniSoapyFloorChance: 0
 --- !u!114 &760811072
 MonoBehaviour:
   m_ObjectHideFlags: 0
