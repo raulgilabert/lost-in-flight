@@ -5,10 +5,14 @@ on:
     branches:
     - main
     - develop
+    paths-ignore:
+    - '.**'
   pull_request:
     branches:
     - main
     - develop
+    paths-ignore:
+    - '.**'
 
 jobs:
   buildForAllSupportedPlatforms:
