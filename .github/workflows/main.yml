@@ -15,7 +15,7 @@ on:
     - '.**'
 
 jobs:
-  buildForAllSupportedPlatforms:
+  build:
     name: Build for ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
     strategy:
@@ -52,3 +52,33 @@ jobs:
         with:
           name: Build-${{ matrix.targetPlatform }}
           path: build/${{ matrix.targetPlatform }}
+
+  publish:
+    name: Publish to Itch.io (${{ matrix.channel }})
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - channel: windows-${{ github.ref_name }}
+            artifact: Build-StandaloneWindows64
+          - channel: linux-${{ github.ref_name }}
+            artifact: Build-StandaloneLinux64
+          - channel: android-${{ github.ref_name }}
+            artifact: Build-Android
+          - channel: webgl-${{ github.ref_name }}
+            artifact: Build-WebGL
+    steps:
+      - uses: actions/download-artifact@v2.0.8
+        with:
+          name: ${{ matrix.artifact }}
+          path: build/${{ matrix.channel }}
+      - uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{ secrets.BUTLER_API_KEY }}
+          gameData: build/${{ matrix.channel }}
+          itchUsername: naritanara
+          itchGameId: the-climb-of-bacty
+          buildChannel: ${{ matrix.channel }}
