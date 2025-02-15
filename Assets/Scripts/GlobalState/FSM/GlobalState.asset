@@ -21,11 +21,16 @@ MonoBehaviour:
     behaviours:
     - rid: 6714380205058162956
     - rid: 6714380205058162955
+    - rid: 4904983302273761357
   - name: Dead
     behaviours: []
   references:
     version: 2
     RefIds:
+    - rid: 4904983302273761357
+      type: {class: TransitionOnResumeButtonClick, ns: GlobalState.FSM, asm: Assembly-CSharp}
+      data:
+        targetState: In Game
     - rid: 6714380205058162953
       type: {class: TransitionOnPause, ns: GlobalState.FSM, asm: Assembly-CSharp}
       data:

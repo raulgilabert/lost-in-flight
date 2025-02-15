@@ -1,6 +1,7 @@
 using FSM;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace GlobalState
 {
@@ -12,6 +13,7 @@ namespace GlobalState
 
         public Player.Player player;
         public UnityEvent<bool> onTogglePause;
+        public Button resumeButton;
         
         public bool IsPaused => _stateMachine.CurrentStateName == "Paused";
 
