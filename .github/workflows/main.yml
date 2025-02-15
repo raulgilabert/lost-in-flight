@@ -1,4 +1,4 @@
-name: Build project
+name: Build project (and publish when adequate)
 
 on:
   push:
@@ -13,6 +13,13 @@ on:
     - develop
     paths-ignore:
     - '.**'
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Run the publish job too'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   build:
@@ -55,7 +62,7 @@ jobs:
 
   publish:
     name: Publish to Itch.io (${{ matrix.channel }})
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish)
     runs-on: ubuntu-latest
     needs: build
     strategy:
@@ -71,7 +78,7 @@ jobs:
           - channel: webgl-${{ github.ref_name }}
             artifact: Build-WebGL
     steps:
-      - uses: actions/download-artifact@v2.0.8
+      - uses: actions/download-artifact@v4
         with:
           name: ${{ matrix.artifact }}
           path: build/${{ matrix.channel }}
