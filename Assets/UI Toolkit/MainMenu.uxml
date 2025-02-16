@@ -1,0 +1,7 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/MainStyle.uss?fileID=7433441132597879392&amp;guid=311782a920922bcb8ae9013ff4cbcf39&amp;type=3#MainStyle" />
+    <engine:VisualElement name="root" style="flex-grow: 1; align-items: center; justify-content: space-between; padding-top: 5%; padding-right: 5%; padding-bottom: 5%; padding-left: 5%;">
+        <engine:Label text="The Climb Of Bacty" name="title" style="font-size: 120px;" />
+        <engine:Button text="Play" name="play-button" class="invert" />
+    </engine:VisualElement>
+</engine:UXML>

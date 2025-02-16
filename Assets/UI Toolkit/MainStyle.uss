@@ -1,0 +1,16 @@
+#root {
+    -unity-font-definition: url("project://database/Assets/Fonts/karamatic-arcade.ttf?fileID=12800000&guid=407d3994b4bb84c72bcb29f82a287ab3&type=3#karamatic-arcade");
+    font-size: 60px;
+}
+
+.invert {
+    color: rgb(253, 253, 253);
+    background-color: rgb(0, 0, 0);
+}
+
+#fade {
+    transition-property: all, background-color;
+    transition-duration: 0s, 1s;
+    transition-timing-function: ease, ease-in-out;
+    transition-delay: 0s, 0s;
+}
