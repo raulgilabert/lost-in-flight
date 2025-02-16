@@ -2,6 +2,7 @@ name: Auto-Merge
 on:
   pull_request_target:
     branches:
+      - stable
       - develop
     types: [opened, reopened]
 

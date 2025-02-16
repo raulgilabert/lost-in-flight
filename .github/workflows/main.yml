@@ -3,13 +3,13 @@ name: Build project (and publish when adequate)
 on:
   push:
     branches:
-    - main
+    - stable
     - develop
     paths-ignore:
     - '.**'
   pull_request:
     branches:
-    - main
+    - stable
     - develop
     paths-ignore:
     - '.**'

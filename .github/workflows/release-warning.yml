@@ -1,0 +1,18 @@
+on:
+  pull_request:
+    types: [opened, reopened]
+    branches: [stable]
+
+jobs:
+  thank-user:
+    runs-on: ubuntu-latest
+    name: Warn about a possible stable release
+    steps:
+      - name: Comment on the pull request
+        uses: hasura/comment-progress@v2.3.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          number: ${{ github.event.number }}
+          id: release-warning
+          message: ":warning: This PR will generate a stable release!"
