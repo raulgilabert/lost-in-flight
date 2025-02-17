@@ -14,3 +14,32 @@
     transition-timing-function: ease, ease-in-out;
     transition-delay: 0s, 0s;
 }
+
+Button {
+    background-image: url("project://database/Assets/Images/kenney-pixel-adventure/tile_0003.png?fileID=21300000&guid=0c107c5e0ed5c6766991e9470f1bb0a7&type=3#tile_0003");
+    padding-top: 25px;
+    padding-right: 25px;
+    padding-bottom: 25px;
+    padding-left: 25px;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(255, 255, 255);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    transition-property: all, -unity-background-image-tint-color, scale;
+    transition-duration: 0s, 0.1s, 0.1s;
+    transition-timing-function: ease, ease-in-out, linear;
+    transition-delay: 0s, 0s, 0s;
+}
+
+Button:focus {
+    -unity-background-image-tint-color: rgb(191, 191, 191);
+    scale: 1.1 1.1;
+}
+
+Button:hover {
+    -unity-background-image-tint-color: rgb(191, 191, 191);
+    scale: 1.1 1.1;
+}
+
+Button:focus:active {
+    scale: 1 1;
+}
